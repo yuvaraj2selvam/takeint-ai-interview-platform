@@ -41,6 +41,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-green: #b9ff66;
+  --color-gray: #f3f3f3;
+  --color-dark: #191a23;
 }
 
 :root {
@@ -120,16 +124,19 @@
     @apply bg-background text-foreground;
   }
 }
-
-
 @layer components {
-  .base-button {
-    @apply bg-[#CAC5FE] text-black px-2 py-[10px] text-lg;
+  .btn-select {
+    @apply bg-green text-black px-4 py-2 rounded;
+  }
+
+  .btn-deselect {
+    @apply bg-white text-black px-4 py-2 rounded border;
   }
 }
 
-.primary-button{
-  @apply bg-[#CAC5FE] z-50 text-black font-semibold rounded-full hover:opacity-80 px-6 py-2 hover:bg-[#CAC5FE] text-[14px]
+
+.primary-button {
+  @apply bg-[#CAC5FE] z-50 text-black font-semibold rounded-full hover:opacity-80 px-6 py-2 hover:bg-[#CAC5FE] text-[14px];
 }
 
 @keyframes ripple1 {
