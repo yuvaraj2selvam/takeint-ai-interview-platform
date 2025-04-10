@@ -1,5 +1,5 @@
 import { google } from "@ai-sdk/google";
-import "../../globals.css";
+import "../globals.css";
 import Image from "next/image";
 
 import { Space_Grotesk } from 'next/font/google'

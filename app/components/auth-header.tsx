@@ -2,16 +2,37 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image';
+
+const data = {
+    login: {
+        header: "Log in to your account",
+        subheader:"Welcome back! Please Enter your details."
+    },
+    signup: {
+        header: "Create a new account",
+        subheader: "Welcome! Please enter your details to sign up."
+    }
+}
+
 
 const AuthHeader = () => {
     const pathname = usePathname()
     const isSignUpSelected = pathname === '/signup'
 
+    const key = isSignUpSelected ? 'signup' : 'login';
+
+    const { header, subheader } = data[key];
+
     return (
-        <section className='flex flex-col text-dark gap-5 items-center justify-center w-full max-w-md p-3'>
+        <section className='flex flex-col text-dark gap-3 items-center justify-center w-full max-w-md pb-3'>
+            <div className='flex items-center flex-col font-bold justify-center'>
+                {/* <Image src="/logo.png" height={120} width={100} alt="google" /> */}
+                <h3 className='text-dark text-2xl'>TakeInt</h3>
+            </div>
             <div className='text-center flex flex-col gap-1'>
-                <h2 className=' font-semibold text-xl md:text-2xl'>Log in to your account</h2>
-                <p className='text-sm md:text-[16px]'>Welcome back! Please Enter your details.</p>
+                <h2 className=' font-semibold text-xl md:text-2xl'>{header}</h2>
+                <p className='text-sm md:text-[16px]'>{ subheader}</p>
             </div>
             <div className="flex flex-row items-center justify-center w-full text-center">
                 <Link href="/signup" className="flex-1">

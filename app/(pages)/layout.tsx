@@ -1,16 +1,12 @@
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "../..//globals.css";
+import { Geist, Geist_Mono,Space_Grotesk } from "next/font/google";
+import "../globals.css";
 import NavBar from "@/app/components/nav-bar";
 import Provider from "@/app/provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
@@ -29,7 +25,7 @@ export default async function RootLayout({
 
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable}
+        className={`${spaceGrotesk.variable}
          text-white
          antialiased
          h-full

@@ -1,7 +1,6 @@
 import InterviewCard from "@/app/components/interview-card";
 import MainBanner from "@/app/components/main-banner";
 import PastInterviewLayout from "@/app/components/old-interview";
-import { User } from "@/app/lib/models/user";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";

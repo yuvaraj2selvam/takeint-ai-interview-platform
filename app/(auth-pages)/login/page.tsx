@@ -14,9 +14,9 @@ const formItems = [
 
 const SignInPage = async () => {
     return (
-        <article className='bg-gray flex items-center gap-5 flex-col justify-center h-full'>
+        <article className='bg-gray flex items-center gap-5 flex-col justify-center h-full px-4'>
             <AuthHeader />
-            <div className='w-2xs md:w-md'>
+            <div className='w-full max-w-md'>
                 <AuthForm formItems={formItems} type='LOGIN' />
             </div>
         </article>

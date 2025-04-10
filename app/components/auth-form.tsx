@@ -1,16 +1,17 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useActionState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-import z, { object } from "zod"
-import { useRouter } from 'next/navigation';
-import { signUpUser } from '../(pages)/(auth)/lib/form-actions';
-import { signIn } from "next-auth/react";
 
+import { handleLoginUser, handleSignUpUser } from "../(auth-pages)/lib/form-actions"
+import { useFormState } from 'react-dom';
+import { boolean } from 'zod';
+import { useRouter } from 'next/navigation';
+import SocialAccount from '../(auth-pages)/social/page';
 
 interface FormItem {
     name: string;
@@ -23,125 +24,85 @@ interface AuthFormProps {
     formItems: FormItem[];
 }
 
-// const signUpFormSchema = z.object({
-//     username: z.string().trim().min(5, { message: "Must be 5 or more characters long" }),
-//     email: z.string().email({ message: "Invalid email address" }),
-//     password: z.string().trim().min(8, { message: "Must be at least 8 characters" }),
-//     confirmpassword: z.string().trim()
-// }).refine((data) => data.password === data.confirmpassword, {
-//     message: "Passwords do not match",
-//     path: ["confirmpassword"]
-// });
+export type FormState = {
+    success: boolean;
+    errors?: Record<string, string>;
+};
+
+const initialFormState: FormState = {
+    success: false,
+    errors: {},
+};
 
 const AuthForm = (props: AuthFormProps) => {
-    // const [formData, setFormData] = useState<Record<string, string>>({});
-    // const [isLoading, setIsLoading] = useState(false);
-    // const [error, setError] = useState<Record<string, string>>({});
-    // const router = useRouter();
 
-    // useEffect(() => {
-    //     setFormData({});
-    // }, [props.type])
+    const router = useRouter();
 
-    // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     const {id, value} = e.target;
-    //     setFormData(prev => ({
-    //         ...prev,
-    //         [id]: value
-    //     }));
-    // };
+    const actionFn = props.type === 'LOGIN' ? handleLoginUser : handleSignUpUser;
+    const [state, formAction, pending] = useActionState(actionFn, initialFormState);
 
-    // const handlesigninUser = async (e: React.FormEvent) => {
-    //     e.preventDefault();
-    //     setIsLoading(true);
-    //     setError({});
-    //     console.log(formData);
-    //     try {
-    //         const res = await signIn("credentials", {
-    //             email: formData.email,
-    //             password: formData.password,
-    //             redirect: false,
-    //         });
-    //         if (res?.error) {
-    //             setError({"": "Invalid UserName/Password, please try again"})
-    //         } else {
-    //             router.push("/")
-    //         }
-    //     } catch (err) {
-    //         console.error(err);
-    //     } finally {
-    //         setIsLoading(false);
-    //         setFormData({});
-    //     }
-    // };
-
-    // const handleSignUpUser = async (e: React.FormEvent) => {
-    //     e.preventDefault();
-    //     setIsLoading(true);
-    //     setError({});
-
-    //     try {
-
-    //         const userData = {
-    //             username: formData["fullname"],
-    //             email: formData["email"],
-    //             password: formData["password"],
-    //             confirmpassword: formData["confirmpassword"]
-    //         }
-
-    //         await signUpFormSchema.parseAsync(userData);
-
-    //         await signUpUser(userData);
-    //         router.push("/signin");
-
-    //     } catch (err) {
-    //         console.log(err);
-    //         if (err instanceof z.ZodError) {
-    //             const fieldErrors = err.formErrors.fieldErrors;
-    //             const errorMap: Record<string, string> = {};
-
-    //             Object.keys(fieldErrors).forEach((key) => {
-    //                 const errorMessages = fieldErrors[key];
-    //                 errorMap[key] = errorMessages?.[0] || 'Validation error';
-    //             });
-    //             setError(errorMap);
-    //         }
-
-    //     } finally {
-    //         setIsLoading(false);
-    //         setFormData({});
-    //     }
-    // };
+    useEffect(() => {
+        if (state.success) router.push("/");
+    }, [state.success])
 
     return (
         <div className='flex gap-3 flex-col'>
             <form
-                action={() => { }}
-                className='flex flex-col gap-4'>
+                action={formAction}
+                className='flex flex-col gap-3'>
                 {
                     props.formItems.map((item, index) => (
                         <section key={index} className='flex flex-col gap-1'>
-                            <Label className='text-sm md:text-[16px]' htmlFor={item.name.replaceAll(" ", "").toLowerCase()}>
+                            <Label className='text-sm md:text-[16px]'
+                                htmlFor={item.name.replaceAll(" ", "").toLowerCase()}>
                                 {item.name}
                             </Label>
                             <Input
                                 type={item.type}
+                                name={item.name.replaceAll(" ", "").toLowerCase()}
                                 id={item.name.replaceAll(" ", "").toLowerCase()}
                                 placeholder={item.placeHolder}
                                 required
                                 className="rounded-tl-2xl border-2 focus:outline-none focus:ring-0 py-5"
                             />
-                        </section>
+                            {
+                                state.errors && state.errors[item.name.replaceAll(" ", "").toLowerCase()] &&
+                                <p className="text-sm text-red-600">{state.errors[item.name.replaceAll(" ", "").toLowerCase()]}</p>
+
+                            }</section>
                     ))
                 }
-                <button className='bg-black text-gray py-2.5 text-md font-semibold rounded-4xl cursor-pointer hover:bg-green hover:text-dark transition ease-in-out duration-500'>Sign in</button>
+                {
+                    state.errors?.general &&
+                    <span className=" text-center text-sm text-red-600">{state.errors["general"]}</span>
+                }
+                {
+                    props.type == "SIGNUP" && state.success &&
+                    <p className='text-center opacity-80'>Account Successfully Created, please
+                        <Link href="/login" className="flex-1 text-center">
+                            <span className='font-bold opacity-100 '> login</span>
+                        </Link>
+                    </p>
+                }
+                {
+                    props.type == "LOGIN" && state.success &&
+                    <p className='text-center text-dark'>Redirecting, please wait...
+                    </p>
+                }
+                <button type='submit'
+                    className='bg-black text-gray py-2.5 text-md font-semibold rounded-4xl cursor-pointer hover:bg-green hover:text-dark transition ease-in-out duration-500'>
+                    {
+                        props.type == "LOGIN" ?
+                            pending ? "Signing in..." : "Sign in" :
+                            pending ? "Signing up..." : "Sign up"
+                    }
+                </button>
             </form>
-            <Button className='bg-white text-dark border-2 border-gray-200 p-[22px] text-md font-semibold rounded-4xl cursor-pointer  hover:bg-white'>
-                <Image src={"/google.webp"} height={20} width={20} alt='google'></Image>
-                Sign in with Google
-            </Button>
+
+            <SocialAccount />
+
             {
-                props.type =="LOGIN" &&
+                props.type == "LOGIN" &&
                 <p className='text-center opacity-80'>Don't have account?
                     <Link href="/signup" className="flex-1 text-center">
                         <span className='font-semibold opacity-100'> Sign up</span>
