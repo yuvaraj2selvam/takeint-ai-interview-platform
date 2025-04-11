@@ -1,7 +1,6 @@
 "use server";
 
 import React from 'react';
-import Image from "next/image";
 import AuthForm from '@/app/components/auth-form';
 import AuthHeader from '@/app/components/auth-header';
 

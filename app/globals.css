@@ -132,8 +132,14 @@
   .btn-deselect {
     @apply bg-white text-black px-4 py-2 rounded border;
   }
-}
 
+  .nav-btn {
+    @apply rounded-full border border-transparent hover:border-black hover:font-semibold text-[16px] leading-6 px-3 py-1.5;
+  }
+  .green-head {
+    @apply bg-green px-2 py-3 rounded-xl;
+  }
+}
 
 .primary-button {
   @apply bg-[#CAC5FE] z-50 text-black font-semibold rounded-full hover:opacity-80 px-6 py-2 hover:bg-[#CAC5FE] text-[14px];
@@ -168,4 +174,15 @@
 .animate-ripple2 {
   animation: ripple2 2s infinite ease-out;
   animation-delay: 0.5s;
+}
+
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+  gap: 400px;
+}
+.embla__slide {
+  width: fit-content;
 }

@@ -3,7 +3,7 @@
 import { FormState } from "@/app/components/auth-form";
 import { signUpFormSchema, LoginSchema } from "./form-schema";
 import z from "zod";
-import { signIn } from "../auth";
+import { signIn, signOut } from "../auth";
 import { AuthError } from "next-auth";
 import { CreateNewUser, getUserByEmail } from "@/app/lib/users";
 
@@ -25,8 +25,7 @@ export async function handleLoginUser(
       redirectTo: "/",
     });
 
-      return { success: true };
-      
+    return { success: true };
   } catch (err) {
     console.log(err);
     if (err instanceof z.ZodError) {

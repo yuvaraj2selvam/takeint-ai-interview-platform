@@ -2,7 +2,7 @@ import {NextResponse} from "next/server";
 import type {NextRequest} from "next/server"
 
 
-const path = ["/", "/interview", /^\/interview\/.*$/];
+const path = [ "/interview", /^\/interview\/.*$/];
 
 export function middleware(request: NextRequest) {
     const pathName = request.nextUrl.pathname;

@@ -24,15 +24,7 @@ export default async function RootLayout({
   return (
 
     <html lang="en">
-      <body
-        className={`${spaceGrotesk.variable}
-         text-white
-         antialiased
-         h-full
-         md:px-3.5
-         xl:px-56
-         bg-gradient-to-b from-[#101216] to-[#0F1014]`}
-      >
+      <body className={`${spaceGrotesk.className} w-full px-4 sm:px-6 md:px-8 max-w-full sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1280px] mx-auto`}>
         <Provider>
           <NavBar />
           {children}

@@ -1,17 +1,17 @@
 import NextAuth, {DefaultSession} from "next-auth";
 
 declare module "next-auth" {
-    interface Session {
-        user: {
-            id: string | null;
-        } & DefaultSession["user"];
-    }
+    // interface Session {
+    //     user: {
+    //         id: string | null;
+    //     } & DefaultSession["user"];
+    // }
 
     interface User {
-
-        password?: string | null;
-        createdAt?: Date;
-        updatedAt?: Date;
+      id: string ;
+      password?: string | null;
+      createdAt?: Date;
+      updatedAt?: Date;
     }
 }
 

@@ -4,14 +4,18 @@ import PastInterviewLayout from "@/app/components/old-interview";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
+import { EmblaCarousel } from "../components/embla-card";
+import SuccessShowCaseBanner from "../components/success-showcase-banner";
 
 
 export default async function Home() {
   //const session = useSession();
   return (
-    <React.Fragment >
+    <main className="" >
       <MainBanner />
+      {/* <EmblaCarousel/> */}
+      <SuccessShowCaseBanner/>
       <PastInterviewLayout/>
-    </React.Fragment >
+    </main >
   );
 }

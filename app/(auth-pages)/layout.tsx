@@ -1,7 +1,4 @@
-import { google } from "@ai-sdk/google";
 import "../globals.css";
-import Image from "next/image";
-
 import { Space_Grotesk } from 'next/font/google'
 
 const grotesk = Space_Grotesk({
@@ -18,7 +15,7 @@ export const metadata = {
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={`${grotesk.variable} h-full w-full`}>
+        <html lang="en" className={`${grotesk.className} h-full w-full`}>
             <body className="bg-[#FFFFFF] h-full w-full">
                 {children}
             </body>

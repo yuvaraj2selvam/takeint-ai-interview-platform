@@ -1,6 +1,5 @@
 import AuthForm from '@/app/components/auth-form';
 import AuthHeader from '@/app/components/auth-header';
-import Image from "next/image";
 import React from 'react'
 
 const formItems = [

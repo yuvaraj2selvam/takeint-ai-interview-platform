@@ -1,7 +1,6 @@
 import z from "zod";
 
-export const signUpFormSchema = z
-  .object({
+export const signUpFormSchema = z.object({
     fullname: z
       .string()
       .trim()
@@ -28,3 +27,4 @@ export const LoginSchema = z.object({
     .trim()
     .min(8, { message: "Must be at least 8 characters" }),
 });
+
