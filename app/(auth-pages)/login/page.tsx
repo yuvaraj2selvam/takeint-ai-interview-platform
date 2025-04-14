@@ -1,8 +1,9 @@
 "use server";
 
 import React from 'react';
-import AuthForm from '@/app/components/auth-form';
-import AuthHeader from '@/app/components/auth-header';
+
+import AuthHeader from '@/app/components/auth/auth-header';
+import AuthForm from '@/app/components/auth/auth-form';
 
 
 const formItems = [

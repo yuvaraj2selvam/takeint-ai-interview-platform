@@ -1,12 +1,12 @@
 "use client";
 
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import InterviewCard from './interview-card'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel'
-import {vapi} from "@/app/lib/vapi.sdk";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel'
+import { vapi } from "@/app/lib/vapi.sdk";
 
 
-const  PastInterviewLayout = () => {
+const PastInterviewLayout = () => {
 
     return (
         <article className='flex flex-col mt-[32px] gap-y-4'>
@@ -26,7 +26,7 @@ const  PastInterviewLayout = () => {
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious className='text-amber-800'/>
+                <CarouselPrevious className='text-amber-800' />
                 <CarouselNext className='text-amber-800' />
             </Carousel>
         </article>

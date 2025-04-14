@@ -2,9 +2,11 @@
 
 import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem } from '@radix-ui/react-menubar';
 import React from 'react';
-import { auth, signOut } from '../(auth-pages)/auth';
+
 import Image from "next/image";
 import { SignOutButton } from './sign-out';
+import { auth } from '@/app/(auth-pages)/auth';
+
 
 const UserProfileIcon = async () => {
     const Session = await auth();
@@ -17,8 +19,8 @@ const UserProfileIcon = async () => {
                     <Image
                         src={Session.user?.image ?? "/logo.png"}
                         className="rounded-full object-center"
-                        height={40}
-                        width={40}
+                        height={50}
+                        width={50}
                         alt="user image"
                     />
                 </MenubarTrigger>

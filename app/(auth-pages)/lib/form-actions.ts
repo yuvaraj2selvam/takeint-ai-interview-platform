@@ -1,11 +1,12 @@
 "use server";
 
-import { FormState } from "@/app/components/auth-form";
+
 import { signUpFormSchema, LoginSchema } from "./form-schema";
 import z from "zod";
 import { signIn, signOut } from "../auth";
 import { AuthError } from "next-auth";
 import { CreateNewUser, getUserByEmail } from "@/app/lib/users";
+import { FormState } from "@/app/components/auth/auth-form";
 
 export async function handleLoginUser(
   prevState: FormState,
