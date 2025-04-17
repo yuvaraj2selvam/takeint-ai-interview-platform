@@ -21,7 +21,7 @@ const TabBar = () => {
         <>
             <TabsList className='gap-2.5 px-1 py-6 rounded-r-full rounded-l-full'>
                 {
-                    Tabitems.map((item, index) => <TabsTrigger className='py-5 text-sm px-3 duration-300 rounded-full hover:bg-green/80 ' key={index} value={item.key}>{item.value}</TabsTrigger>)
+                    Tabitems.map((item, index) => <TabsTrigger className='py-5 text-sm px-3 duration-300 rounded-full hover:scale-105 hover:bg-green/80 ' key={index} value={item.key}>{item.value}</TabsTrigger>)
                 }
             </TabsList>
             {/* <TabsList className='gap-2.5 p-3'>
