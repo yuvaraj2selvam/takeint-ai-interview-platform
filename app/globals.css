@@ -186,3 +186,10 @@
 .embla__slide {
   width: fit-content;
 }
+
+
+@layer utilities {
+  .diagonal-green-gradient {
+    background: linear-gradient(150deg, #000000, #163327, #1c6449, #17996e, #09b380, #09af7d, #08ac7b, #08a878);
+  }
+}

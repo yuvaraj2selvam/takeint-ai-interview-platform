@@ -29,28 +29,29 @@ export const items = [
 ];
 export function AppSidebar() {
     return (
-        <Sidebar variant="sidebar" className="h-full" collapsible="icon">
-            <SidebarHeader className="bg-gray py-10 w-full flex text-3xl overflow-hidden font-semibold items-center justify-center">
-                TakeInt
-            </SidebarHeader>
-            <SidebarContent className="bg-gray flex items-center justify-start">
-                <SidebarGroup className="px-2">
-                    <SidebarGroupContent className="flex gap-10">
-                        <SidebarMenu className="gap-5">
-                            {items.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton className="text-lg p-5 hover:bg-black hover:text-white" asChild>
-                                        <a href={item.url}>
-                                            <item.icon className="h-10 w-10" />
-                                            <span>{item.title}</span>
-                                        </a>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
-            </SidebarContent>
-        </Sidebar>
+        <></>
+        // <Sidebar variant="sidebar" className="h-full" collapsible="icon">
+        //     <SidebarHeader className="bg-gray py-10 w-full flex text-3xl overflow-hidden font-semibold items-center justify-center">
+        //         TakeInt
+        //     </SidebarHeader>
+        //     <SidebarContent className="bg-gray flex items-center justify-start">
+        //         <SidebarGroup className="px-2">
+        //             <SidebarGroupContent className="flex gap-10">
+        //                 <SidebarMenu className="gap-5">
+        //                     {items.map((item) => (
+        //                         <SidebarMenuItem key={item.title}>
+        //                             <SidebarMenuButton className="text-lg p-5 hover:bg-black hover:text-white" asChild>
+        //                                 <a href={item.url}>
+        //                                     <item.icon className="h-10 w-10" />
+        //                                     <span>{item.title}</span>
+        //                                 </a>
+        //                             </SidebarMenuButton>
+        //                         </SidebarMenuItem>
+        //                     ))}
+        //                 </SidebarMenu>
+        //             </SidebarGroupContent>
+        //         </SidebarGroup>
+        //     </SidebarContent>
+        // </Sidebar>
     )
 }

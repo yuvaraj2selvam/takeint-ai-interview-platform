@@ -1,17 +1,13 @@
 "use client";
 
 import React, { useActionState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { Label } from './ui/label';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-
-import { handleLoginUser, handleSignUpUser } from "../(auth-pages)/lib/form-actions"
-import { useFormState } from 'react-dom';
-import { boolean } from 'zod';
 import { useRouter } from 'next/navigation';
-import SocialAccount from '../(auth-pages)/social/page';
+import { handleLoginUser, handleSignUpUser } from '@/app/(auth-pages)/lib/form-actions';
+import SocialAccount from '@/app/(auth-pages)/social/page';
+import { Label } from '@radix-ui/react-menubar';
+import { Input } from '../ui/input';
+
 
 interface FormItem {
     name: string;

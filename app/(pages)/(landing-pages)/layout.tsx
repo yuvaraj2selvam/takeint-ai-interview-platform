@@ -24,7 +24,7 @@ export default async function Layout({
 }>) {
   return (
 
-    <html lang="en">
+    <html lang="en" className="h-full">
       <ReactLenis root options={{ lerp: 0.8, duration: 1.5 }}>
         <body className={`${spaceGrotesk.className} w-full `}>
           <Provider>

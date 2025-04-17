@@ -19,8 +19,8 @@ const UserProfileIcon = async () => {
                     <Image
                         src={Session.user?.image ?? "/logo.png"}
                         className="rounded-full object-center"
-                        height={50}
-                        width={50}
+                        height={42}
+                        width={42}
                         alt="user image"
                     />
                 </MenubarTrigger>
