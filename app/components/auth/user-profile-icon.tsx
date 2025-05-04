@@ -1,4 +1,3 @@
-"use server";
 
 import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem } from '@radix-ui/react-menubar';
 import React from 'react';
@@ -6,9 +5,10 @@ import React from 'react';
 import Image from "next/image";
 import { SignOutButton } from './sign-out';
 import { auth } from '@/app/(auth-pages)/auth';
+import { useSession } from 'next-auth/react';
 
 
-const UserProfileIcon = async () => {
+const UserProfileIcon =  async() => {
     const Session = await auth();
 
     return (

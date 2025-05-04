@@ -3,11 +3,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "../../../globals.css";
 import Provider from "@/app/provider";
-import { ReactLenis } from "@/app/lib/lenis";
-import { SidebarProvider, SidebarTrigger } from "@/app/components/ui/sidebar";
-import { AppSidebar } from "@/app/components/dashboard/side-navbar";
-import DashboardNavBar from "@/app/components/dashboard/nav-bar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs'
+import { Tabs } from '../../../components/ui/tabs'
+import NavBarContainer from "@/app/components/dashboard/navigation-bar/nav-bar-wrapper";
+import DashboardNavBar from "@/app/components/dashboard/navigation-bar/nav-bar";
 
 const spaceGrotesk = Space_Grotesk({
     variable: "--font-geist-mono",
@@ -27,32 +25,29 @@ export default async function Layout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="h-full">
-            <ReactLenis root options={{ lerp: 0.8, duration: 1.5 }}>
-                <body
-                    className={`
-                        ${spaceGrotesk.className}
-                        relative top-0 h-full w-full bg-white px-4 sm:px-6 md:px-8
-                        max-w-full sm:max-w-[540px] md:max-w-[720px]
-                        lg:max-w-[960px] xl:max-w-[1280px] mx-auto
-                    `}
-                >
-                    <Provider>
-                        <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] bg-green/90 rounded-full  opacity-50 blur-[80px]" />
-                        {/* bg-[rgba(173,109,244,0.5)] */}
+        <html lang="en" className="h-full w-full">
+            <body className="gradient h-full w-full">
+                <div className="relative h-full w-full">
+                    {/* background blobs */}
+                    <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-x-[10%] translate-y-[20%] bg-white brightness-200 rounded-full opacity-50 blur-[80px]" />
+                    <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-x-[220%] translate-y-[30%] bg-green brightness-200 rounded-full opacity-50 blur-[80px]" />
+                    {/* <Image src={`/robot-orange.png`} className='absolute h-[500px]  top-[20%] left-[30%] w-[500px] self-end -z-1' width={500} height={500} alt='gold-medal'></Image> */}
 
-                        <Tabs defaultValue="dashboard" className="h-full w-full">
-                            <DashboardNavBar />
-                            {children}
-                        </Tabs>
-                    </Provider>
-                </body>
-            </ReactLenis>
-        </html >
-    );
-
-}
-
-
-
-
+                    {/* content container */}
+                    <div className="w-full h-full px-4 sm:px-6 md:px-8
+                                    max-w-full sm:max-w-[540px] md:max-w-[720px]
+                                    lg:max-w-[960px] xl:max-w-[1280px] mx-auto
+                                    ">
+                        <Provider>
+                            <Tabs defaultValue="mockinterview" className="min-h-screen w-full">
+                                <NavBarContainer />
+                                <DashboardNavBar />
+                                {children}
+                            </Tabs>
+                        </Provider>
+                    </div>
+                </div>
+            </body>
+        </html>
+    )
+};

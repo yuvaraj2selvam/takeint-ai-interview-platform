@@ -80,6 +80,11 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --chart-1: 139 65% 20%;
+  --chart-2: 140 74% 44%;
+  --chart-3: 142 88% 28%;
+  --chart-4: 137 55% 15%;
+  --chart-5: 141 40% 9%;
 }
 
 .dark {
@@ -101,12 +106,11 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
+    --chart-1: 139 65% 20%;
+    --chart-2: 140 74% 44%;
+    --chart-3: 142 88% 28%;
+    --chart-4: 137 55% 15%;
+    --chart-5: 141 40% 9%;
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -124,6 +128,7 @@
     @apply bg-background text-foreground;
   }
 }
+
 @layer components {
   .btn-select {
     @apply bg-green text-black px-4 py-2 rounded;
@@ -187,9 +192,10 @@
   width: fit-content;
 }
 
-
-@layer utilities {
-  .diagonal-green-gradient {
-    background: linear-gradient(150deg, #000000, #163327, #1c6449, #17996e, #09b380, #09af7d, #08ac7b, #08a878);
-  }
+.gradient {
+  background: linear-gradient(135deg, #e8e9ea, #b9ff66);
+  background-repeat: no-repeat;
+  background-size: cover;
+   background-attachment: fixed;
 }
+
