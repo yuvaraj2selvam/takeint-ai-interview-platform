@@ -3,7 +3,7 @@
 import * as React from "react"
 import {
     ColumnDef,
-    ColumnFiltersState,
+    PaginationState,
     SortingState,
     flexRender,
     getCoreRowModel,
@@ -12,9 +12,8 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
-
-import { Input } from "../ui/input"
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react"
+import { FilterFn } from "@tanstack/react-table";
 import {
     Table,
     TableBody,
@@ -24,240 +23,245 @@ import {
     TableRow,
 } from "../ui/table"
 import { Button } from "../ui/button"
-import { useState } from "react"
-import { Card, CardContent } from "../ui/card"
+import { useEffect, useState } from "react"
 
-export const data: MockInterview[] = [
+export type MockInterview = {
+    id: string;
+    title: string;
+    isCompleted: boolean;
+    createdAt: Date;
+    position: string;
+    role: string;
+    type: string;
+    difficulty: "1" | "2" | "3";
+    tags: string[];
+};
+
+export let data: MockInterview[] = [
     {
         id: "1",
         title: "Frontend Technical Interview",
-        status: "inProgress",
+        isCompleted: false,
         createdAt: new Date("2025-04-20T10:00:00Z"),
         position: "Frontend Engineer",
         role: "Frontend Developer",
         type: "Technical",
-        difficulty: "medium",
+        difficulty: "2",
         tags: ["React", "JavaScript", "CSS"]
     },
     {
         id: "2",
         title: "System Design for Backend",
-        status: "completed",
+        isCompleted: false,
         createdAt: new Date("2025-03-15T15:30:00Z"),
         position: "Backend Engineer",
         role: "Backend Developer",
         type: "System Design",
-        difficulty: "hard",
+        difficulty: "3",
         tags: ["Scalability", "Databases", "Microservices"]
     },
     {
         id: "3",
         title: "Behavioral Round Practice",
-        status: "completed",
+        isCompleted: false,
         createdAt: new Date("2025-04-05T12:00:00Z"),
         position: "Software Engineer",
         role: "Full Stack Developer",
         type: "Behavioral",
-        difficulty: "easy",
+        difficulty: "1",
         tags: ["Communication", "Leadership", "Teamwork"]
     },
     {
         id: "4",
         title: "Data Structures & Algorithms",
-        status: "inProgress",
+        isCompleted: false,
         createdAt: new Date("2025-04-25T08:45:00Z"),
         position: "Software Engineer",
         role: "Backend Developer",
         type: "Technical",
-        difficulty: "hard",
+        difficulty: "3",
         tags: ["Algorithms", "Problem Solving", "Graphs"]
     },
     {
         id: "5",
         title: "Mobile Dev Interview",
-        status: "completed",
+        isCompleted: false,
         createdAt: new Date("2025-02-28T09:30:00Z"),
         position: "Mobile Engineer",
         role: "Android Developer",
         type: "Technical",
-        difficulty: "medium",
+        difficulty: "2",
         tags: ["Kotlin", "Jetpack", "UI Design"]
     },
     {
         id: "6",
         title: "Full Stack Interview Simulation",
-        status: "inProgress",
+        isCompleted: false,
         createdAt: new Date("2025-04-28T13:00:00Z"),
         position: "Full Stack Engineer",
         role: "Full Stack Developer",
         type: "Technical",
-        difficulty: "medium",
+        difficulty: "2",
         tags: ["Node.js", "React", "MongoDB"]
     },
     {
         id: "7",
         title: "Behavioral Interview for Tech Leads",
-        status: "completed",
+        isCompleted: false,
         createdAt: new Date("2025-03-21T16:00:00Z"),
         position: "Technical Lead",
         role: "Team Lead",
         type: "Behavioral",
-        difficulty: "medium",
+        difficulty: "2",
         tags: ["Leadership", "Conflict Resolution", "Mentorship"]
     },
     {
         id: "8",
         title: "System Design: Messaging System",
-        status: "completed",
+        isCompleted: false,
         createdAt: new Date("2025-03-10T10:30:00Z"),
         position: "Backend Engineer",
         role: "System Architect",
         type: "System Design",
-        difficulty: "hard",
+        difficulty: "3",
         tags: ["Pub/Sub", "Load Balancing", "Caching"]
     },
     {
         id: "9",
         title: "React Deep Dive",
-        status: "inProgress",
+        isCompleted: false,
         createdAt: new Date("2025-04-30T11:15:00Z"),
         position: "Frontend Engineer",
         role: "React Developer",
         type: "Technical",
-        difficulty: "medium",
+        difficulty: "2",
         tags: ["Hooks", "State Management", "Performance"]
     },
     {
         id: "10",
         title: "AI/ML Position Interview",
-        status: "completed",
+        isCompleted: false,
         createdAt: new Date("2025-03-08T09:00:00Z"),
         position: "Machine Learning Engineer",
         role: "ML Engineer",
         type: "Technical",
-        difficulty: "hard",
+        difficulty: "3",
         tags: ["Model Evaluation", "Python", "Scikit-learn"]
     },
     {
         id: "11",
         title: "SQL and Data Modeling",
-        status: "completed",
+        isCompleted: false,
         createdAt: new Date("2025-04-01T14:00:00Z"),
         position: "Data Analyst",
         role: "Data Specialist",
         type: "Technical",
-        difficulty: "easy",
+        difficulty: "1",
         tags: ["SQL", "Normalization", "Joins"]
     },
     {
         id: "12",
         title: "Cloud System Design",
-        status: "inProgress",
+        isCompleted: false,
         createdAt: new Date("2025-04-29T10:00:00Z"),
         position: "Cloud Architect",
         role: "DevOps Engineer",
         type: "System Design",
-        difficulty: "hard",
+        difficulty: "3",
         tags: ["AWS", "Kubernetes", "Scalability"]
     },
     {
         id: "13",
         title: "Behavioral + Tech Round",
-        status: "completed",
+        isCompleted: false,
         createdAt: new Date("2025-03-17T17:00:00Z"),
         position: "Product Engineer",
         role: "Software Developer",
         type: "Behavioral",
-        difficulty: "medium",
+        difficulty: "2",
         tags: ["Culture Fit", "Technical Communication", "Problem Solving"]
     },
     {
         id: "14",
         title: "Junior Dev Mock Interview",
-        status: "completed",
+        isCompleted: false,
         createdAt: new Date("2025-02-15T09:30:00Z"),
         position: "Junior Developer",
         role: "Entry-Level Developer",
         type: "Technical",
-        difficulty: "easy",
+        difficulty: "1",
         tags: ["Loops", "Basic Algorithms", "Debugging"]
     },
     {
         id: "15",
         title: "Data Engineering Practical",
-        status: "inProgress",
+        isCompleted: false,
         createdAt: new Date("2025-04-27T10:00:00Z"),
         position: "Data Engineer",
         role: "Big Data Engineer",
         type: "Technical",
-        difficulty: "hard",
+        difficulty: "3",
         tags: ["ETL", "Spark", "Data Pipelines"]
     }
 ];
 
-export type MockInterview = {
-    id: string;
-    title: string;
-    status: "inProgress" | "completed";
-    createdAt: Date;
-    position: string;
-    role: string; // e.g., "Frontend Developer", "Data Engineer"
-    type: string; // e.g., "Technical", "Behavioral", "System Design"
-    difficulty: "easy" | "medium" | "hard";
-    tags: string[];
+const levels: Record<string, string> = {
+    "1": "Easy",
+    "2": "Medium",
+    "3": "Hard",
 };
-
 
 export const columns: ColumnDef<MockInterview>[] = [
     {
         accessorKey: "title",
-        header: "Title",
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("title")}</div>
-        ),
-    },
-    {
-        accessorKey: "status",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            >
-                Status
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-        ),
-        cell: ({ row }) => {
-            const status = row.getValue("status");
-            const isInProgress = status === "inProgress";
-
-            return isInProgress ? (
-                <Button className="py-2 px-3 w-[160px] rounded-full bg-green-500 text-white text-sm font-medium hover:bg-green-600">
-                    Take Interview
-                </Button>
-            ) : (
-                <div className="py-2 px-3 w-[160px] rounded-full bg-dark text-green-400 text-sm text-center font-medium">
-                    Completed
-                </div>
-            );
-        },
-        enableSorting: true,
-    }
-,
-    {
-        accessorKey: "createdAt",
         header: ({ column }) => {
+            const isSorted = column.getIsSorted();
+            const handleSort = () => column.toggleSorting(isSorted === "asc");
+
             return (
                 <Button
                     variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    onClick={handleSort}
+                    className="flex items-center gap-1"
+                    aria-label={`Sort by CreatedAt ${isSorted === "asc" ? "descending" : "ascending"}`}
+                >
+                    Title
+                    {isSorted === "asc" && <ArrowUp className="w-4 h-4" />}
+                    {isSorted === "desc" && <ArrowDown className="w-4 h-4" />}
+                    {!isSorted && <ArrowUpDown className="w-4 h-4 opacity-50" />}
+                </Button>
+            );
+        },
+        cell: ({ row }) => (
+            <div className="capitalize">{row.getValue("title")}</div>
+        ),
+        size: 100
+    }
+    ,
+    {
+        accessorKey: "createdAt",
+        header: ({ column }) => {
+            const isSorted = column.getIsSorted();
+            const handleSort = () => column.toggleSorting(isSorted === "asc");
+
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={handleSort}
+                    className="flex items-center gap-1"
+                    aria-label={`Sort by CreatedAt ${isSorted === "asc" ? "descending" : "ascending"}`}
                 >
                     CreatedAt
-                    <ArrowUpDown />
+                    {isSorted === "asc" && <ArrowUp className="w-4 h-4" />}
+                    {isSorted === "desc" && <ArrowDown className="w-4 h-4" />}
+                    {!isSorted && <ArrowUpDown className="w-4 h-4 opacity-50" />}
                 </Button>
-            )
+            );
         },
+        enableSorting: true,
         cell: ({ row }) => <div className="lowercase">{row.getValue<Date>("createdAt").toLocaleDateString()}</div>,
+        size: 100
+
     },
     {
         accessorKey: "role",
@@ -267,6 +271,8 @@ export const columns: ColumnDef<MockInterview>[] = [
             )
         },
         cell: ({ row }) => <div className="lowercase">{row.getValue("role")}</div>,
+        size: 100
+
     },
     {
         accessorKey: "type",
@@ -276,49 +282,121 @@ export const columns: ColumnDef<MockInterview>[] = [
             )
         },
         cell: ({ row }) => <div className="lowercase">{row.getValue("type")}</div>,
+        size: 100
+
     },
     {
         accessorKey: "difficulty",
         header: ({ column }) => {
+            const isSorted = column.getIsSorted();
+            const handleSort = () => column.toggleSorting(isSorted === "asc");
+
             return (
-                "Difficulty"
+                <Button
+                    variant="ghost"
+                    onClick={handleSort}
+                    className="flex items-center gap-1"
+                    aria-label={`Sort by CreatedAt ${isSorted === "asc" ? "descending" : "ascending"}`}
+                >
+                    Difficulty
+                    {isSorted === "asc" && <ArrowUp className="w-4 h-4" />}
+                    {isSorted === "desc" && <ArrowDown className="w-4 h-4" />}
+                    {!isSorted && <ArrowUpDown className="w-4 h-4 opacity-50" />}
+                </Button>
+            );
+        },
+        cell: ({ row }) => {
+            const type: "1" | "2" | "3" = row.getValue("difficulty");
+            return (
+                <div className={`flex rounded-4xl justify-center items-center text-center ${type == "1" ? "bg-[#46c6c2]" : type == "2" ? "bg-[#ffb700]" : "bg-[#f63737]"}`}>
+
+                    <span className="text-center p-2 ">{levels[row.getValue("difficulty") as string]}</span>
+                </div>
             )
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue("difficulty")}</div>,
-    },
-]
+        enableSorting: true,
+        enableResizing: true,
+        size: 100
 
-export function DataTableDemo() {
+    },
+    {
+        accessorKey: "isCompleted",
+        header: ({ column }) => "Status",
+        cell: ({ row }) => {
+            const status = row.getValue("isCompleted");
+            const isInProgress = status === false;
+
+            return isInProgress && (
+                <div className="w-[160px]">
+                    <Button className="w-full cursor-pointer py-4 px-4 rounded-full bg-[#1d243c] text-sm font-semibold text-center text-white hover:bg-black transition-colors duration-200">
+                        <span className=" relative flex items-center gap-2">
+                            <span>Take Interview</span>
+                            <span className="relative flex items-center size-3">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-200 opacity-75"></span>
+                                <span className="relative inline-flex size-3 rounded-full bg-sky-400"></span>
+                            </span>
+                        </span>
+                    </Button>
+                </div>
+            )
+        },
+    }
+]
+type InterviewTableProps = {
+    globalFilterValue: string;
+};
+
+
+const multiColumnTextFilter: FilterFn<any> = (row, columnId, filterValue) => {
+    const title = row.getValue<string>('title')?.toLowerCase().trim();
+    const role = row.getValue<string>('role')?.toLowerCase().trim();
+    const value = (filterValue as string).toLowerCase().trim();
+
+    return title.includes(value) || role.includes(value);
+};
+
+
+
+export function MockInterviewTable({ globalFilterValue }: InterviewTableProps) {
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [pagination, setPagination] = useState({
+    const [globalFilter, setGlobalFilter] = useState<any>("")
+    const [pagination, setpagination] = useState<PaginationState>({
         pageIndex: 0,
-        pageSize: 5,
-    });
+        pageSize: 5
+    })
+
+    useEffect(() => {
+        setGlobalFilter(globalFilterValue.trim() || "");
+    }, [globalFilterValue]);
+
+    // data = data.filter(item => !item.isCompleted);
 
     const table = useReactTable({
         columns,
         data,
         state: {
             sorting,
-            pagination,
+            globalFilter,
+            pagination
         },
         onSortingChange: setSorting,
-        onPaginationChange: setPagination,
+        onGlobalFilterChange: setGlobalFilter,
+        onPaginationChange: setpagination,
+        getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        manualPagination: false, 
-        pageCount: Math.ceil(data.length / pagination.pageSize),
+        manualPagination: false,
     });
 
     return (
-        <div className="space-y-4">
-            <Table className="w-full px-4">
+        <div className="space-y-4 bg-white px-10 py-4 rounded-4xl z-50">
+            <Table className="w-full h-full overflow-auto">
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
-                                <TableHead key={header.id} className="p-2 text-left border-b-2  border-gray-400 border-dotted">
+                                <TableHead key={header.id} style={{ width: header.getSize() }} className="p-2 bg-transparent text-left border-b-2  border-gray-400 border-dotted">
                                     {flexRender(header.column.columnDef.header, header.getContext())}
                                 </TableHead>
                             ))}
@@ -327,12 +405,21 @@ export function DataTableDemo() {
                 </TableHeader>
                 <TableBody className="">
                     {table.getRowModel().rows.map((row) => (
-                        <TableRow className="p-4 rounded-full hover:bg-green" key={row.id}>
-                            {row.getVisibleCells().map((cell) => (
-                                <TableCell key={cell.id} className="p-4">
-                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </TableCell>
-                            ))}
+                        <TableRow className="p-4 border-none rounded-[45px] hover:bg-[#e7e9fb]" key={row.id}>
+                            {row.getVisibleCells().map((cell, i) => {
+                                const isFirst = i === 0;
+                                const isLast = i === row.getVisibleCells().length - 1;
+                                return (
+                                    <TableCell
+                                        key={cell.id}
+                                        style={{ width: cell.column.getSize() }}
+                                        className={`p-4 ${isFirst ? 'rounded-l-[45px]' : ''
+                                            } ${isLast ? 'rounded-r-[45px]' : ''}`}
+                                    >
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
+                                );
+                            })}
                         </TableRow>
                     ))}
                 </TableBody>
@@ -340,8 +427,8 @@ export function DataTableDemo() {
 
             <div className="flex justify-between items-center">
                 <div className="text-sm text-gray-600">
-                    Page {table.getState().pagination.pageIndex + 1} of{" "}
-                    {table.getPageCount()}
+                    {table.getState().pagination.pageIndex + 1} of{' '}
+                    {table.getPageCount().toLocaleString()}
                 </div>
                 <div className="flex gap-2">
                     <Button

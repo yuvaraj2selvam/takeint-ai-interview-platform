@@ -80,11 +80,11 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --chart-1: 139 65% 20%;
-  --chart-2: 140 74% 44%;
-  --chart-3: 142 88% 28%;
-  --chart-4: 137 55% 15%;
-  --chart-5: 141 40% 9%;
+  --chart-1: 231 30% 24%;
+  --chart-2: 232 14% 41%;
+  --chart-3: 232 14% 41%; /* same as chart-2 */
+  --chart-4: 229 14% 60%;
+  --chart-5: 231 58% 95%;
 }
 
 .dark {
@@ -106,11 +106,11 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-    --chart-1: 139 65% 20%;
-    --chart-2: 140 74% 44%;
-    --chart-3: 142 88% 28%;
-    --chart-4: 137 55% 15%;
-    --chart-5: 141 40% 9%;
+  --chart-1: #b9ff66;
+  --chart-2: #5a5f7a;
+  --chart-3: #b9ff66;
+  --chart-4: #b9ff66;
+  --chart-5: #b9ff66;
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -193,9 +193,8 @@
 }
 
 .gradient {
-  background: linear-gradient(135deg, #e8e9ea, #b9ff66);
+  background: linear-gradient(135deg, #e8e9ea, #e7e9fb);
   background-repeat: no-repeat;
   background-size: cover;
-   background-attachment: fixed;
+  background-attachment: fixed;
 }
-

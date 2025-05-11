@@ -7,17 +7,22 @@ import MockInterviewTab from '@/app/components/dashboard/tabs/mock-interview'
 
 const page = () => {
   return (
-    <div className='h-full'>
+    <div className=' z-50'>
       <TabsContent value="dashboard">
         <DashboardTab />
       </TabsContent>
-      <TabsContent value="createinterview">
-        <CreateInterviewTab />
-      </TabsContent>
-      <TabsContent value="mockinterview">
+      <TabsContent value="live_interviews">
         <MockInterviewTab />
       </TabsContent>
-      <TabsContent value="feedbackscores">Change your password here.</TabsContent>
+      <TabsContent value="mock_interviews">
+        <MockInterviewTab />
+      </TabsContent>
+      <TabsContent value="create_interview">
+        <CreateInterviewTab />
+      </TabsContent>
+      <TabsContent value="interview_history">
+        <MockInterviewTab />
+      </TabsContent>
     </div>
   )
 }

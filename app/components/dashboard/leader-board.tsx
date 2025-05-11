@@ -16,9 +16,9 @@ export default function LeaderBoard() {
     }, []);
 
     const items = [
-        { label: 'yuvaraj 1',score:2000, bg: '#098637', z: 'z-30', offset: '',imagepath:'gold-medal.png' },
-        { label: 'yuvaraj 2', score: 1800, bg: '#0e2115', z: 'z-20', offset: '-mt-4', opacity: '/90',imagepath: 'silver-medal.png' },
-        { label: 'yuvaraj 3', score: 900, bg: '#116b2e', z: 'z-10', offset: '-mt-5', opacity: '/70', imagepath: 'bronze-medal.png' },
+        { label: 'yuvaraj 1', score: 2000, bg: '#1d243c', z: 'z-30', offset: '',imagepath:'gold-medal.png' },
+        { label: 'yuvaraj 2', score: 1800, bg: '#5a5f7a', z: 'z-20', offset: '-mt-4', opacity: '/90',imagepath: 'silver-medal.png' },
+        { label: 'yuvaraj 3', score: 900, bg: '#898da5', z: 'z-10', offset: '-mt-5', opacity: '/60', imagepath: 'bronze-medal.png' },
     ];
 
     return (

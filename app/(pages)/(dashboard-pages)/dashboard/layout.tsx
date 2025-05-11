@@ -26,20 +26,18 @@ export default async function Layout({
 }>) {
     return (
         <html lang="en" className="h-full w-full">
-            <body className="gradient h-full w-full">
+            <body className="gradient h-screen w-full">
                 <div className="relative h-full w-full">
-                    {/* background blobs */}
-                    <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-x-[10%] translate-y-[20%] bg-white brightness-200 rounded-full opacity-50 blur-[80px]" />
-                    <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-x-[220%] translate-y-[30%] bg-green brightness-200 rounded-full opacity-50 blur-[80px]" />
-                    {/* <Image src={`/robot-orange.png`} className='absolute h-[500px]  top-[20%] left-[30%] w-[500px] self-end -z-1' width={500} height={500} alt='gold-medal'></Image> */}
 
-                    {/* content container */}
-                    <div className="w-full h-full px-4 sm:px-6 md:px-8
+                    <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-x-[10%] translate-y-[20%] bg-[#898da5] brightness-200 rounded-full opacity-50 blur-[80px]" />
+                    <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-x-[220%] translate-y-[30%] bg-[#5a5f7a] brightness-200 rounded-full opacity-50 blur-[80px]" />
+
+                    <div className="w-full max-h-screen px-4 sm:px-6 md:px-8
                                     max-w-full sm:max-w-[540px] md:max-w-[720px]
                                     lg:max-w-[960px] xl:max-w-[1280px] mx-auto
                                     ">
                         <Provider>
-                            <Tabs defaultValue="mockinterview" className="min-h-screen w-full">
+                            <Tabs defaultValue="mockinterview" className="max-h-screen w-full ">
                                 <NavBarContainer />
                                 <DashboardNavBar />
                                 {children}
