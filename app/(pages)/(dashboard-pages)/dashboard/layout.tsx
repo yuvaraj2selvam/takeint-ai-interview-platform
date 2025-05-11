@@ -37,7 +37,7 @@ export default async function Layout({
                                     lg:max-w-[960px] xl:max-w-[1280px] mx-auto
                                     ">
                         <Provider>
-                            <Tabs defaultValue="mockinterview" className="max-h-screen w-full ">
+                            <Tabs defaultValue="mock_interviews" className="max-h-screen w-full ">
                                 <NavBarContainer />
                                 <DashboardNavBar />
                                 {children}

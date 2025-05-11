@@ -205,7 +205,7 @@ export let data: MockInterview[] = [
     }
 ];
 
-const levels: Record<string, string> = {
+export const difficultyLevels: Record<string, string> = {
     "1": "Easy",
     "2": "Medium",
     "3": "Hard",
@@ -309,8 +309,7 @@ export const columns: ColumnDef<MockInterview>[] = [
             const type: "1" | "2" | "3" = row.getValue("difficulty");
             return (
                 <div className={`flex rounded-4xl justify-center items-center text-center ${type == "1" ? "bg-[#46c6c2]" : type == "2" ? "bg-[#ffb700]" : "bg-[#f63737]"}`}>
-
-                    <span className="text-center p-2 ">{levels[row.getValue("difficulty") as string]}</span>
+                    <span className="text-center p-2 ">{difficultyLevels[row.getValue("difficulty") as string]}</span>
                 </div>
             )
         },

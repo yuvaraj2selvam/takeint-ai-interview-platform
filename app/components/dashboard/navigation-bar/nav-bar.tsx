@@ -2,8 +2,9 @@
 
 import React from 'react'
 import UserProfileIcon from "../../auth/user-profile-icon";
-import TabBar from '../tab-bar';
+
 import Link from 'next/link';
+import TabBar from './tab-bar';
 
 
 const DashboardNavBar = async () => {
