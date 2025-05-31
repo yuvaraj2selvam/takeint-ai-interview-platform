@@ -1,11 +1,13 @@
 "use client";
 
-import React from 'react'
+import React, { useActionState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select';
 import { Button } from '../ui/button';
+import { handleFormAction } from '@/app/lib/form-actions';
+
 
 
 const mockInterviewQuestions = [
@@ -32,31 +34,42 @@ const mockInterviewQuestions = [
         name: "experience",
         type: "select",
         options: ["0-1 years", "1-3 years", "3-5 years", "5-8 years", "8+ years"],
+        defaultOption: "0-1 years"
     },
     {
         label: "Preferred difficulty level?",
-        name: "difficulty",
+        name: "difficultyLevel",
         type: "select",
         options: ["Easy", "Medium", "Hard"],
+        defaultOption: "Easy"
     }],
     [{
         label: "Number of questions?",
         name: "numberOfQuestions",
         type: "select",
         options: ["5", "8", "10", "15"],
+        defaultOption: "5"
     },
     {
         label: "Mock Interview Title",
-        name: "mockTitle",
+        name: "name",
         type: "input",
         placeholder: "e.g., Google Frontend Tech Mock",
     }],
 ];
 
 
+const initialState = {
+    success: false,
+};
+
+
 const CreateInterviewForm = () => {
+
+    const [state, formAction, isPending] = useActionState(handleFormAction, initialState);
+
     return (
-        <Card className="flex flex-col w-full max-w-4xl z-10 p-4 md:p-8 bg-transparent border-none shadow-none">
+        <Card className="flex flex-col w-full max-w-4xl z-50 p-4 md:p-8 bg-transparent border-none shadow-none">
             <CardHeader className="p-0 mb-4">
                 <CardTitle className="text-dark text-xl md:text-2xl text-center md:text-left">
                     Customize your mock interview to suit your needs.
@@ -64,7 +77,7 @@ const CreateInterviewForm = () => {
             </CardHeader>
 
             <CardContent className="p-0">
-                <form className="flex flex-col gap-6">
+                <form action={formAction} className="flex flex-col gap-6">
                     {mockInterviewQuestions.map((item, index) => {
                         if (Array.isArray(item)) {
                             return (
@@ -89,9 +102,9 @@ const CreateInterviewForm = () => {
                                             ) : (
                                                 question.type === "select" &&
                                                 Array.isArray(question.options) && (
-                                                    <Select required>
+                                                    <Select name={question.name} required defaultValue={question.defaultOption}>
                                                         <SelectTrigger className="w-full">
-                                                            <SelectValue placeholder="" />
+                                                            <SelectValue placeholder={question.defaultOption} />
                                                         </SelectTrigger>
                                                         <SelectContent>
                                                             <SelectGroup >
@@ -126,11 +139,11 @@ const CreateInterviewForm = () => {
                                             required
                                         />
                                     ) : (
-                                            question.type === "select"
-                                            && 'options' in question
-                                            && Array.isArray(question.options)
-                                            && Array.isArray(question.options) && (
-                                            <Select required>
+                                        question.type === "select"
+                                        && 'options' in question
+                                        && Array.isArray(question.options)
+                                        && (
+                                            <Select name={question.name} required>
                                                 <SelectTrigger className="w-full">
                                                     <SelectValue placeholder={question.options[0]} />
                                                 </SelectTrigger>

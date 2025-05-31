@@ -1,9 +1,8 @@
 import {generateText} from "ai";
 import {google} from "@ai-sdk/google";
-import {connectDB} from "@/app/lib/mongoose";
-import {Interview} from "@/app/lib/models/interview";
 
-export async function  POST (req:Request, res:Response) {
+
+export async function POST (req:Request, res:Response) {
     const { type, role, level, techstack, amount, userid } = await req.json();
     try {
         const { text: questions } = await generateText({
@@ -32,8 +31,6 @@ export async function  POST (req:Request, res:Response) {
             userId: userid,
         };
 
-        await connectDB();
-        await Interview.insertOne(interviewData);0
 
         return Response.json({ success: true }, { status: 200 });
     } catch (error) {

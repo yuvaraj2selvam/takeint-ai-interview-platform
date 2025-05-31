@@ -23,7 +23,6 @@ const NavBarContainer = () => {
         if (isMenuSelected) {
             document.addEventListener('mousedown', handleClickOutside);
             document.body.style.overflow = 'hidden';
-           
         } else {
             document.removeEventListener('mousedown', handleClickOutside);
             document.body.style.overflow = '';
@@ -38,17 +37,17 @@ const NavBarContainer = () => {
     }, [isMenuSelected]);
 
     return (
-        <>
+        <article>
             <div className="visible pt-10 lg:hidden transition duration-700">
                 <Menu onClick={handleMenuSelect} />
             </div>
             {isMenuSelected && (
                 <div ref={sidebarRef} className='    '>
-                    <AppSidebar />
+                    <AppSidebar callBack={setInMenuSelected} />
                 </div>
             )}
-            
-        </>
+
+        </article>
     );
 };
 

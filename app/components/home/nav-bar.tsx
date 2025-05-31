@@ -40,7 +40,7 @@ const NavBar = async () => {
                         <>
                             {
                                 Session?.user?.image
-                                    ? <UserProfileIcon />
+                                    ? <UserProfileIcon isOptionEnabled={true} />
                                     : <div className="h-[14px] w-[14px] bg-fuchsia-200"></div>
                             }
 

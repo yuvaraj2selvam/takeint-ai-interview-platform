@@ -5,10 +5,12 @@ import React from 'react';
 import Image from "next/image";
 import { SignOutButton } from './sign-out';
 import { auth } from '@/app/(auth-pages)/auth';
-import { useSession } from 'next-auth/react';
 
+type UserProfileTypes = {
+    isOptionEnabled?: boolean
+}
 
-const UserProfileIcon =  async() => {
+const UserProfileIcon = async (prop: UserProfileTypes) => {
     const Session = await auth();
 
     return (
@@ -24,7 +26,8 @@ const UserProfileIcon =  async() => {
                         alt="user image"
                     />
                 </MenubarTrigger>
-                <MenubarContent className='bg-gray px-4 py-1.5 min-w-[120px] rounded-sm'>
+
+                < MenubarContent className='bg-gray px-4 py-1.5 min-w-[120px] rounded-sm'>
                     <MenubarItem className='text-dark font-semibold hover:border-0 cursor-pointer'>
                         <SignOutButton />
                     </MenubarItem>
