@@ -6,6 +6,9 @@ import Provider from "@/app/provider";
 import { Tabs } from '../../../components/ui/tabs'
 import NavBarContainer from "@/app/components/dashboard/navigation-bar/nav-bar-wrapper";
 import DashboardNavBar from "@/app/components/dashboard/navigation-bar/nav-bar";
+import { Suspense } from "react";
+import Loader from "@/app/components/ui/loader";
+import { Toaster } from "@/app/components/ui/sonner";
 
 const spaceGrotesk = Space_Grotesk({
     variable: "--font-geist-mono",
@@ -36,13 +39,18 @@ export default async function Layout({
                                     max-w-full sm:max-w-[540px] md:max-w-[720px]
                                     lg:max-w-[960px] xl:max-w-[1280px] mx-auto
                                     ">
+
                         <Provider>
+
                             <Tabs defaultValue="mock_interviews" className="max-h-screen w-full ">
                                 <NavBarContainer />
                                 <DashboardNavBar />
-                                {children}
+                                <Suspense fallback={<Loader />}>
+                                    {children}
+                                </Suspense>
                             </Tabs>
                         </Provider>
+                        <Toaster />
                     </div>
                 </div>
             </body>

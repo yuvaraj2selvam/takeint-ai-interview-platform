@@ -37,16 +37,13 @@ export async function handleFormAction(
     };
     await CreateInterviewSchema.parseAsync(data);
 
-    const createInterviewRes = await fetch(
-      "http://localhost:3000/api/interview/create",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const createInterviewRes = await fetch("/api/interview/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
     if (createInterviewRes.ok) {
       return { success: true };
