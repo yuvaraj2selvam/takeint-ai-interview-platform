@@ -1,16 +1,20 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { MockInterviewTable } from '../mock-interview-table'
 import { Card, CardContent, CardHeader } from '../../ui/card'
 import { Input } from '../../ui/input';
+import { useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query';
+import { FetchMockInterviews } from '@/hooks/react-query/functions';
+import { QueryKeys } from '@/hooks/react-query/keys';
 
 
 const MockInterviewTab = () => {
 
   const [globalFilter, setglobalFilter] = useState("");
 
-
+  const queryRef = useRef<UseQueryResult<any, Error> | null>(null);
+  queryRef.current = useQuery({ queryKey: [QueryKeys.fetch_interview], queryFn: FetchMockInterviews });
   return (
     <Card className="flex border-none h-full gap-0 bg-[#c1cbef] z-10 pt-0 px-0 rounded-4xl pb-0 w-full">
       <CardHeader className="flex py-4 justify-end flex-row">
@@ -21,8 +25,8 @@ const MockInterviewTab = () => {
           onChange={(e) => setglobalFilter(e.target.value)}
         />
       </CardHeader>
-      <CardContent className="w-full py-0 px-0">
-        <MockInterviewTable globalFilterValue={globalFilter} />
+      <CardContent className="w-full h-full py-0 px-0">
+        <MockInterviewTable globalFilterValue={globalFilter} query={queryRef.current} />
       </CardContent>
     </Card>
   );

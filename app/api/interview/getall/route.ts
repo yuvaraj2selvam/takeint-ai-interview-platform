@@ -1,12 +1,10 @@
-// app/api/interviews/route.ts
+import { auth } from "@/app/(auth-pages)/auth";
 import { prisma } from "@/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { userId: string } }
-) {
-  const userId = params.userId;
+export async function GET(req: NextRequest) {
+  const session = await auth();
+  const userId = session?.user?.id;
 
   if (!userId) {
     return NextResponse.json({ error: "Missing userId" }, { status: 400 });

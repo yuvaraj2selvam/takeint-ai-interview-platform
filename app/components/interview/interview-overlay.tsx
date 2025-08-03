@@ -1,11 +1,15 @@
-"use client";
+
 
 import { useState, useEffect } from "react";
 import { Mic, MicOff, Clock, Award, AlertCircle } from "lucide-react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
 
-const StartInterviewDialog = () => {
+type InterviewOverlayProps = {
+    handleStartInterview: () => void;
+}
+
+const InterviewOverlay = ({ handleStartInterview }: InterviewOverlayProps) => {
     const [open, setOpen] = useState(true);
     const [micAccess, setMicAccess] = useState(false);
     const [micAccessAttempted, setMicAccessAttempted] = useState(false);
@@ -30,7 +34,7 @@ const StartInterviewDialog = () => {
         }
     };
 
-    const handleStartInterview = () => {
+    const StartInterview = () => {
         setShowCountdown(true);
     };
 
@@ -45,6 +49,12 @@ const StartInterviewDialog = () => {
         }
     }, [showCountdown, countdown]);
 
+    useEffect(() => {
+        if (!open) {
+            handleStartInterview();
+        }
+    }, [open])
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent
@@ -52,7 +62,7 @@ const StartInterviewDialog = () => {
                 onEscapeKeyDown={(event: any) => event.preventDefault()}
                 className="sm:max-w-lg rounded-lg p-0 overflow-hidden border-none shadow-xl"
             >
-          
+
                 <div className="bg-[#5a5f7a] p-6">
                     <DialogHeader>
                         <DialogTitle className="text-2xl font-bold text-white flex items-center">
@@ -65,11 +75,11 @@ const StartInterviewDialog = () => {
                     </DialogHeader>
                 </div>
 
-              
+
                 <div className="p-6 bg-white">
                     {!showCountdown && (
                         <div className="space-y-6">
-                        
+
                             <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center">
@@ -98,7 +108,7 @@ const StartInterviewDialog = () => {
                                 )}
                             </div>
 
-                         
+
                             <div className="border border-indigo-100 rounded-lg overflow-hidden hover:">
                                 <button
                                     onClick={() => setShowTips(!showTips)}
@@ -123,13 +133,13 @@ const StartInterviewDialog = () => {
                             </div>
 
 
-                           
+
                             <div className="text-sm text-[#5a5f7a] bg-slate-50 p-3 rounded-lg border border-slate-200">
                                 <strong>Note:</strong> Once started, the interview session cannot be paused or
                                 stopped. Please ensure you're in a quiet environment and ready to proceed.
                             </div>
 
-                     
+
                             <div className="flex flex-col space-y-3">
                                 {!micAccess ? (
                                     <Button
@@ -141,7 +151,7 @@ const StartInterviewDialog = () => {
                                     </Button>
                                 ) : (
                                     <Button
-                                        onClick={handleStartInterview}
+                                        onClick={StartInterview}
                                         className="w-full bg-[#5a5f7a] cursor-pointer hover:bg-[#2a314e] text-white py-3 rounded-lg flex items-center justify-center"
                                     >
                                         <Clock className="mr-2 h-4 w-4" />
@@ -153,7 +163,7 @@ const StartInterviewDialog = () => {
                         </div>
                     )}
 
-               
+
                     {showCountdown && (
                         <div className="text-center py-6 space-y-4">
                             <div className="relative mx-auto w-24 h-24 flex items-center justify-center">
@@ -181,4 +191,4 @@ const StartInterviewDialog = () => {
     );
 };
 
-export default StartInterviewDialog;
+export default InterviewOverlay;

@@ -6,9 +6,11 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select';
 import { Button } from '../ui/button';
-import { handleFormAction } from '@/app/lib/form-actions';
+import { handleCreateInterviewFormAction } from '@/app/lib/form-actions';
 import Loader from '../ui/loader';
 import { toast } from 'sonner';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryKeys } from '@/hooks/react-query/keys';
 
 
 
@@ -68,9 +70,9 @@ const initialState = {
 
 const CreateInterviewForm = () => {
 
-    const [state, formAction, isPending] = useActionState(handleFormAction, initialState);
+    const [state, formAction, isPending] = useActionState(handleCreateInterviewFormAction, initialState);
     const [isPendingSet, setIsPendingSet] = useState(false);
-
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         if (isPending) setIsPendingSet(true);
@@ -91,6 +93,7 @@ const CreateInterviewForm = () => {
                 },
                 className: "shadow-lg",
             })
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.fetch_interview] });
         } else if (isPendingSet) {
             toast.success("Error Occured, Please Try Again", {
                 duration: 3000,
@@ -111,7 +114,7 @@ const CreateInterviewForm = () => {
 
     return (
         <div className='relative w-full overflow-hidden'>
-            <Card className="flex flex-col  w-full max-w-4xl z-50 p-4 md:p-8 bg-transparent border-none shadow-none">
+            <Card className="flex flex-col w-full max-w-4xl z-50 p-4 md:p-8 bg-transparent border-none shadow-none">
                 <CardHeader className="p-0 mb-4">
                     <CardTitle className="text-dark text-xl md:text-2xl text-center md:text-left">
                         Customize your mock interview to suit your needs.
@@ -210,9 +213,16 @@ const CreateInterviewForm = () => {
                             type="submit"
                             className="p-4 text-base md:text-lg flex font-medium hover:bg-[#cfd5f0] transition-all duration-300 hover:text-black w-full md:w-auto"
                         >
-                            <span className='flex-1'>
-                                Create Interview
-                            </span>
+                            {isPending ?
+                                <span className='flex-1'>
+                                    Creating your Interview , Please Wait ...
+                                </span>
+                                :
+                                <span className='flex-1'>
+                                    Create Interview
+                                </span>
+                            }
+
                             {
                                 isPending &&
                                 <div className="flex w-10 relative items-center justify-center">

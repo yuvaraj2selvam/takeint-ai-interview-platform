@@ -26,11 +26,20 @@ export async function POST(req: Request, res: Response) {
             The amount of questions required is: ${noOfQuestions}.
             Please return only the questions, without any additional text.
             The questions are going to be read by a voice assistant so do not use "/" or "*" or any other special characters which might break the voice assistant.
-            Return the questions formatted like this:
+            IMPORTANT:
+            - Output must be a raw JSON array of strings.
+            - Do NOT include any markdown, code blocks, or triple backticks.
+            - Do NOT include any introductory or explanatory text.
+            - Do NOT escape characters like \n or use \\.
+            - Output format must be:
             ["Question 1", "Question 2", "Question 3"]
-        
-            Thank you! <3
-    `,
+
+            This will be read by a voice assistant, so:
+            - Avoid using any special characters like /, *, \\, backticks, or quotes inside questions.
+            - Do not prefix items with numbers or dashes.
+            - Output must be valid JSON, directly parsable by JSON.parse().
+
+            Thank you! <3`,
     });
 
     const interviewData = {
@@ -42,7 +51,8 @@ export async function POST(req: Request, res: Response) {
       noOfQuestions: noOfQuestions,
       difficultyLevel: difficultyLevel as string,
       userId: userId as string,
-      interviewText: GeneratedQuestions,
+      isCompleted: false,
+      questions: JSON.parse(GeneratedQuestions) as string[],
     };
 
     await prisma.interview.create({

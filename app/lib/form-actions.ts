@@ -15,7 +15,7 @@ const CreateInterviewSchema = z.object({
   userId: z.string().nonempty(),
 });
 
-export async function handleFormAction(
+export async function handleCreateInterviewFormAction(
   prevState: FormState,
   formData: FormData
 ) {
@@ -37,13 +37,16 @@ export async function handleFormAction(
     };
     await CreateInterviewSchema.parseAsync(data);
 
-    const createInterviewRes = await fetch("/api/interview/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const createInterviewRes = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/interview/create`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     if (createInterviewRes.ok) {
       return { success: true };
@@ -52,5 +55,29 @@ export async function handleFormAction(
     }
   } catch (e) {
     return { success: false };
+  }
+}
+
+
+export async function handleCompleteInterviewAction(data:any) {
+  try {
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/interview/complete`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.statusText}`);
+    }
+
+  } catch (e) {
+    console.error(e);
   }
 }

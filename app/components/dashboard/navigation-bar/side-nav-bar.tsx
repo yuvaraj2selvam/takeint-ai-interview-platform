@@ -8,7 +8,7 @@ import { Dispatch, SetStateAction } from "react";
 
 const Tabitems = [
     { value: "Dashboard", key: "dashboard" },               // Overview of all activities, stats, recommendations
-    { value: "Live Interviews", key: "live_interviews" },   // Company-specific real-time interviews
+    // { value: "Live Interviews", key: "live_interviews" },   // Company-specific real-time interviews
     { value: "Mock Interviews", key: "mock_interviews" },   // AI-generated practice interviews
     { value: "Create Interview", key: "create_interview" }, // Build custom interview flows
     { value: "Interview History", key: "interview_history" }, // Review past interviews with feedback

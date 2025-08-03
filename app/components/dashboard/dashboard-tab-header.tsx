@@ -3,7 +3,14 @@
 import { useSession } from 'next-auth/react'
 import React from 'react'
 
-const DashboardTabHeader = () => {
+
+type DashboardHeaderProps = {
+    completedInterViews: number,
+    totalInterViews:number
+}
+
+
+const DashboardTabHeader = (props: DashboardHeaderProps) => {
     const session = useSession();
     return (
         <div className='flex gap-5 flex-col'>
@@ -43,12 +50,12 @@ const DashboardTabHeader = () => {
                         <h2 className='text-sm'>Live Interviews</h2>
                     </div> */}
                     <div className='flex  gap-0  items-center sm:items-end justify-end flex-col'>
-                        <span className='text-5xl md:text-6xl'>12</span>
+                        <span className='text-5xl md:text-6xl'>{props.totalInterViews == 0 ? "00" : props.totalInterViews}</span>
                         <h2 className='text-sm'>Mock Interviews </h2>
                     </div>
                     <div className='flex  items-center sm:items-end justify-end flex-col'>
-                        <span className='text-5xl md:text-6xl'>16</span>
-                        <h2 className='text-sm'>Created Interviews </h2>
+                        <span className='text-5xl md:text-6xl'>{props.completedInterViews == 0 ? "00" : props.completedInterViews}</span>
+                        <h2 className='text-sm'>Completed Mock Interviews </h2>
                     </div>
                 </div>
             </div>

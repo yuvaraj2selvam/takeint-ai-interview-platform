@@ -1,6 +1,6 @@
 
 import UserProfileIcon from "@/app/components/auth/user-profile-icon";
-import "../../../globals.css";
+import "../../../../globals.css";
 import type { Metadata } from "next";
 import Provider from "@/app/provider";
 

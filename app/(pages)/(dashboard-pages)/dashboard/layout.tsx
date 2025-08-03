@@ -9,6 +9,7 @@ import DashboardNavBar from "@/app/components/dashboard/navigation-bar/nav-bar";
 import { Suspense } from "react";
 import Loader from "@/app/components/ui/loader";
 import { Toaster } from "@/app/components/ui/sonner";
+import { useQuery } from '@tanstack/react-query';
 
 const spaceGrotesk = Space_Grotesk({
     variable: "--font-geist-mono",
@@ -21,12 +22,13 @@ export const metadata: Metadata = {
 };
 
 
-
 export default async function Layout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+
+
     return (
         <html lang="en" className="h-full w-full">
             <body className="gradient h-screen w-full">
@@ -42,7 +44,7 @@ export default async function Layout({
 
                         <Provider>
 
-                            <Tabs defaultValue="mock_interviews" className="max-h-screen w-full ">
+                            <Tabs defaultValue="dashboard" className="max-h-screen w-full ">
                                 <NavBarContainer />
                                 <DashboardNavBar />
                                 <Suspense fallback={<Loader />}>
