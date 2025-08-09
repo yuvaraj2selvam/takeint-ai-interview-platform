@@ -128,12 +128,12 @@ const CreateInterviewForm = () => {
                                 return (
                                     <section
                                         key={index}
-                                        className="flex flex-col gap-4 md:flex-row md:gap-6 w-full"
+                                        className="flex flex-col gap-4  md:flex-row md:gap-6 w-full"
                                     >
                                         {item.map((question, subIndex) => (
                                             <div
                                                 key={`${index}-${subIndex}`}
-                                                className="flex flex-col w-full md:flex-1 gap-2"
+                                                className="flex flex-col justify-between w-full md:flex-1 gap-2"
                                             >
                                                 <Label htmlFor={question.name}>{question.label}</Label>
                                                 {question.type === "input" ? (
@@ -172,7 +172,7 @@ const CreateInterviewForm = () => {
                                 return (
                                     <section
                                         key={index}
-                                        className="flex flex-col gap-2 w-full"
+                                        className="flex flex-col justify-between gap-2 w-full"
                                     >
                                         <Label htmlFor={question.name}>{question.label}</Label>
                                         {question.type === "input" ? (

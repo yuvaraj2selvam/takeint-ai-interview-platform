@@ -23,12 +23,11 @@ const chartConfig = {
 } satisfies ChartConfig
 
 
-export function PerformanceRadarChart(Data:any) {
-
+export function SkillsPerformanceChart(Data: any) {
     return (
         <Card className="min-w-3xs p-0 m-0 z-10 gap-0 flex justify-center items-center h-fit bg-white/60 rounded-4xl">
             <CardHeader className="h-full w-full">
-                <CardTitle className="p-3 pt-5">Performance</CardTitle>
+                <CardTitle className="p-3 pt-5">Skills Performance</CardTitle>
             </CardHeader>
             <CardContent className="px-5">
                 <ChartContainer

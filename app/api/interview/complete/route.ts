@@ -1,3 +1,4 @@
+import { auth } from "@/app/(auth-pages)/auth";
 import { SavedMessage } from "@/app/components/interview/interview-body";
 import { prisma } from "@/prisma/prisma";
 import { google } from "@ai-sdk/google";
@@ -42,11 +43,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
               If the interview is invalid, return exactly: {}
 `,
     });
-    const feedbackObject = JSON.parse(text.replace(/^```json\n|```$/g, "").trim());
-    if (feedbackObject && feedbackObject.feedbackObject.trim()!="") {
+    const feedbackObject = JSON.parse(
+      text.replace(/^```json\n|```$/g, "").trim()
+    );
+    if (feedbackObject && feedbackObject.feedbackObject.trim() != "") {
       const feedBackData = {
         interviewId: data.id,
-        feedbackObject: feedbackObject.feedbackObject,
+        userId: data.userid,
+        feedBack: feedbackObject.feedbackObject,
         problemSolving: feedbackObject.ProblemSolving,
         systemDesign: feedbackObject.SystemDesign,
         communicationSkills: feedbackObject.CommunicationSkills,
