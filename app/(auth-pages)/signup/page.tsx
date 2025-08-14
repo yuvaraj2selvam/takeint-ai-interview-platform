@@ -14,7 +14,7 @@ const formItems = [
 const SignUpPage = () => {
     return (
 
-        <article className='bg-gray flex items-center flex-col justify-center h-full px-4'>
+        <article className='bg-gray flex items-center flex-col justify-center px-4 py-10'>
             <AuthHeader />
             <div className='w-full max-w-md'>
                 <AuthForm formItems={formItems} type='SIGNUP' />

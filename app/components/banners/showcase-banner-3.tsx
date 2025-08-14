@@ -59,9 +59,9 @@ const ShowcaseBanner3 = () => {
     };
 
     return (
-        <article className='pt-10 pb-10'>
-            <section className='flex flex-row justify-items-start gap-10 pt-12 pb-12 items-center'>
-                <h3 className='w-fit green-head text-center sm:text-left px-4 text-2xl sm:text-4xl'>How AI Mock Interviews Can Help You Succeed
+        <article className='pb-10'>
+            <section className='flex flex-col md:flex-row justify-items-start gap-10 pt-12 pb-12 items-center'>
+                <h3 className='w-fit blue-head text-center sm:text-left px-4 text-2xl sm:text-4xl'>How AI Mock Interviews Can Help You Succeed
                 </h3>
                 <p className='max-w-2/3'>Stop feeling unprepared and anxious. Discover how AI-powered mock interviews help you ace your next job interview with confidence.</p>
             </section>
@@ -70,13 +70,13 @@ const ShowcaseBanner3 = () => {
                     {
                         interviewTips.map((item, index) => {
                             return <AccordionItem className='border-0' onClick={() => selectAccordion(index.toString())} key={index} value={`item-${index}`}>
-                                <AccordionTrigger className={` transition-all duration-400 border-[1px]  ${selected[index.toString()] ? "border-black  rounded-[45px] border-2 rounded-b-none border-b-0 bg-green " : "bg-gray  rounded-[45px]  border-b-8 border-black "}  items-center overflow-hidden  h-[160px] ${index % 2 ? "justify-end" : "justify-start"}  p-10 w-full `}>
+                                <AccordionTrigger className={` transition-all duration-400 border-[1px]  ${selected[index.toString()] ? "border-black  rounded-[45px] border-2 rounded-b-none border-b-0 bg-blue-200 " : "bg-gray  rounded-[45px]  border-b-8 border-black "}  items-center overflow-hidden  h-[160px] ${index % 2 ? "justify-end" : "justify-start"}  p-10 w-full `}>
                                     <div className='flex items-center gap-3'>
                                         <span className='text-6xl'>0{index + 1}</span>
                                         {item.head}
                                     </div>
                                 </AccordionTrigger>
-                                <AccordionContent className={`bg-green p-5 rounded-[45px] border-[1px] border-black ${selected[index.toString()] && "border-b-8 rounded-none rounded-b-[45px]"}`}>
+                                <AccordionContent className={`bg-blue-200 p-5 rounded-[45px] border-[1px] border-black ${selected[index.toString()] && "border-b-8 rounded-none rounded-b-[45px]"}`}>
                                     {item.subhead}
                                 </AccordionContent>
                             </AccordionItem>

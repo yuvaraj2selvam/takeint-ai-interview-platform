@@ -131,7 +131,7 @@
 
 @layer components {
   .btn-select {
-    @apply bg-green text-black px-4 py-2 rounded;
+    @apply bg-blue-200 text-black px-4 py-2 rounded;
   }
 
   .btn-deselect {
@@ -139,10 +139,11 @@
   }
 
   .nav-btn {
-    @apply rounded-full border border-transparent hover:border-black hover:font-semibold text-[16px] leading-6 px-3 py-1.5;
+    @apply rounded-full border border-transparent hover:border-black hover:font-semibold text-[16px] leading-6 px-1 md:px-2.5 py-2.5 ;
   }
-  .green-head {
-    @apply bg-green px-2 py-3 rounded-xl;
+
+  .blue-head {
+    @apply bg-blue-200 px-2 py-3 rounded-xl;
   }
 }
 

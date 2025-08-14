@@ -86,7 +86,7 @@ const AuthForm = (props: AuthFormProps) => {
                     </p>
                 }
                 <button type='submit'
-                    className='bg-black text-gray py-2.5 text-md font-semibold rounded-4xl cursor-pointer hover:bg-green hover:text-dark transition ease-in-out duration-500'>
+                    className='bg-black text-gray py-2.5 text-md font-semibold rounded-4xl cursor-pointer hover:bg-blue-200 hover:text-dark transition ease-in-out duration-500'>
                     {
                         props.type == "LOGIN" ?
                             pending ? "Signing in..." : "Sign in" :

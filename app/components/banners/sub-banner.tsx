@@ -24,12 +24,12 @@ const vibrantColors = [
 
 const SubBanner = () => {
     return (
-        <section className='flex flex-wrap justify-center gap-6 mt-20 mb-10 px-4'>
+        <section className='flex flex-wrap justify-center gap-6 px-4'>
             {
                 aiInterviewBenefits.map((item, index) => (
                     <span
                         key={index}
-                        className={`text-xl font-bold ${vibrantColors[index]} drop-shadow-md hover:drop-shadow-xl hover:scale-110 hover:brightness-110 transition-all duration-500 ease-in-out px-5 py-3 rounded-full bg-white border border-gray-200 shadow-sm cursor-pointer`}
+                        className={`text-xl text-center font-bold ${vibrantColors[index]} drop-shadow-md items-center hover:drop-shadow-xl hover:scale-110 hover:brightness-110 transition-all duration-500 ease-in-out px-5 py-3 rounded-full bg-white border border-gray-200 shadow-sm cursor-pointer`}
                     >
                         {item}
                     </span>
