@@ -16,14 +16,14 @@ const Footer = () => {
                     <span>Name: yuvaraj s</span>
                     <span>Country: India</span>
                 </div>
-                <div className='flex-1 h-full'>
+                {/* <div className='flex-1 h-full'>
                     <form className="bg-[#292A32] px-10 py-8 rounded-[14px] gap-5 h-full flex flex-col sm:flex-row items-center justify-center">
                         <div className="w-full sm:w-[55%]">
                             <input type="text" id="email" name="email" placeholder="Email" className="bg-transparent w-full px-[35px] py-5 border rounded-[14px] focus:outline-none" />
                         </div>
                         <button type="submit" name="submit" className="w-full bg-blue-200 p-5 cursor-pointer text-black rounded-2xl transition transition-normal  hover:text-white hover:bg-black sm:w-[45%] btn-tertiary">Subscribe to news</button>
                     </form>
-                </div>
+                </div> */}
             </div>
             <hr />
             <div className='md:text-left text-center'>
