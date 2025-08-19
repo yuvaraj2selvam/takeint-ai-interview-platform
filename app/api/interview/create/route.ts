@@ -52,7 +52,9 @@ export async function POST(req: Request, res: Response) {
       difficultyLevel: difficultyLevel as string,
       userId: userId as string,
       isCompleted: false,
-      questions: JSON.parse(GeneratedQuestions) as string[],
+      questions: JSON.parse(
+        GeneratedQuestions.replace(/^```json\n|```$/g, "").trim()
+      ) as string[],
     };
 
     await prisma.interview.create({

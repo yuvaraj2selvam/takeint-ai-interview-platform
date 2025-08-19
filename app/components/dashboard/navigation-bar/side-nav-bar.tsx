@@ -7,11 +7,10 @@ import { Dispatch, SetStateAction } from "react";
 
 
 const Tabitems = [
-    { value: "Dashboard", key: "dashboard" },               // Overview of all activities, stats, recommendations
-    // { value: "Live Interviews", key: "live_interviews" },   // Company-specific real-time interviews
-    { value: "Mock Interviews", key: "mock_interviews" },   // AI-generated practice interviews
-    { value: "Create Interview", key: "create_interview" }, // Build custom interview flows
-    { value: "Interview History", key: "interview_history" }, // Review past interviews with feedback
+    { value: "Dashboard", key: "dashboard" },        
+    { value: "Mock Interviews", key: "mock_interviews" },  
+    { value: "Create Interview", key: "create_interview" }, 
+    { value: "Interview History", key: "interview_history" }, 
 ];
 
 export type AppSideBar = {
@@ -19,15 +18,13 @@ export type AppSideBar = {
 }
 
 export function AppSidebar(AppSideBarProp: AppSideBar) {
-
     const user = useSession().data?.user;
-
     return (
         <div className="w-2/3 h-full max-w-[300px] transform translate-x-0 opacity-100 transition-all duration-[5s] ease-in-out fixed lg:hidden z-100  items-center py-10 flex flex-col top-0 left-0 bg-white">
-            <Link className="w-full px-4 " href={"/"}>
-                <h3 className='text-2xl w-full text-center justify-center border-[1px] border-black rounded-2xl px-1.5 py-2 font-semibold flex items-center'><span className='font-bold text-center text-4xl'>T</span>akeInt</h3>
+            <Link href={"/"}>
+                <h3 className='text-3xl hover:bg-[#bec8ff] border-[1px] border-black rounded-3xl px-3 py-2.5 font-semibold flex items-center'><span className='font-bold text-4xl'>T</span>akeInt</h3>
             </Link>
-            <TabsList className='gap-6 h-fit bg-transparent px-1 flex-col items-start py-6 rounded-r-full rounded-l-full'>
+            <TabsList className='gap-6 h-fit bg-transparent px-1 flex-col items-center py-6 rounded-r-full rounded-l-full'>
                 {
                     Tabitems.map((item, index) => <TabsTrigger onClick={() => AppSideBarProp.callBack(() => false)} className='py-1 px-3 h-[16px] text-sm rounded-2xl' key={index} value={item.key}>{item.value}</TabsTrigger>)
                 }

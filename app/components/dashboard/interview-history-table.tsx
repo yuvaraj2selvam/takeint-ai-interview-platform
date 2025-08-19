@@ -4,7 +4,8 @@ import { TableHeader, TableRow, TableHead, TableBody, TableCell, Table } from '.
 import Loader from '../ui/loader';
 import { useEffect, useState } from 'react';
 import { ArrowUp, ArrowDown, ArrowUpDown, Link } from 'lucide-react';
-import { DialogDemo } from './feedback-dialog';
+import { FeedBackDialog } from './feedback-dialog';
+import { UseQueryResult } from '@tanstack/react-query';
 
 export type InterviewHistoryType = {
   id: string;
@@ -110,7 +111,8 @@ export const interviewHistoryData: InterviewHistoryType[] = [
 ];
 
 type InterviewHistoryTableProps = {
-  globalFilterValue: string;
+  globalFilterValue: string,
+  query: UseQueryResult<any, Error>;
 };
 
 export const columns: ColumnDef<InterviewHistoryType>[] = [
@@ -231,13 +233,12 @@ export const columns: ColumnDef<InterviewHistoryType>[] = [
   {
     accessorKey: "feedBack",
     header: ({ column }) => "FeedBack",
-    cell: ({ row }) => <DialogDemo feedBack={row.getValue<string>("feedBack")} />,
+    cell: ({ row }) => <FeedBackDialog interviewtitle={row.getValue<string>("name")} feedBack={row.getValue<string>("feedBack")} />,
   }
 ]
 
-export function InterviewHistoryTable({ globalFilterValue }: InterviewHistoryTableProps) {
+export function InterviewHistoryTable({ globalFilterValue, query }: InterviewHistoryTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [data, setData] = useState<InterviewHistoryType[]>(interviewHistoryData);
   const [globalFilter, setGlobalFilter] = useState("");
   const [pagination, setpagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -251,7 +252,7 @@ export function InterviewHistoryTable({ globalFilterValue }: InterviewHistoryTab
 
   const table = useReactTable({
     columns,
-    data: data || [],
+    data: query.data || [],
     state: {
       sorting,
       globalFilter,
@@ -270,7 +271,7 @@ export function InterviewHistoryTable({ globalFilterValue }: InterviewHistoryTab
 
   return (
     <div className="space-y-4 bg-white min-h-[465px] flex flex-col justify-between px-10 py-4 rounded-4xl z-50">
-      {false ? (
+      {query.isFetching ? (
         <div className="flex justify-center items-center min-h-[400px]">
           <Loader />
         </div>

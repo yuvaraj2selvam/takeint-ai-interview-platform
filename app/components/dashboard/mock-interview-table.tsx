@@ -37,143 +37,6 @@ export type MockInterviewType = {
     difficultyLevel: string;
 };
 
-// export let data: MockInterviewType[] = [
-//     {
-//         id: "Easy",
-//         name: "Frontend Technical Interview",
-//         isCompleted: false,
-//         createdAt: new Date("2025-04-20T10:00:00Z"),
-//         role: "Frontend Developer",
-//         type: "Technical",
-//         difficultyLevel: "Medium",
-//     },
-//     {
-//         id: "Medium",
-//         name: "System Design for Backend",
-//         isCompleted: false,
-//         createdAt: new Date("2025-03-15T15:30:00Z"),
-//         role: "Backend Developer",
-//         type: "System Design",
-//         difficultyLevel: "Hard",
-//     },
-//     {
-//         id: "Hard",
-//         name: "Behavioral Round Practice",
-//         isCompleted: false,
-//         createdAt: new Date("2025-04-05T12:00:00Z"),
-//         role: "Full Stack Developer",
-//         type: "Behavioral",
-//         difficultyLevel: "Easy",
-//     },
-//     {
-//         id: "4",
-//         name: "Data Structures & Algorithms",
-//         isCompleted: false,
-//         createdAt: new Date("2025-04-25T08:45:00Z"),
-//         role: "Backend Developer",
-//         type: "Technical",
-//         difficultyLevel: "Hard",
-//     },
-//     {
-//         id: "5",
-//         name: "Mobile Dev Interview",
-//         isCompleted: false,
-//         createdAt: new Date("2025-02-28T09:30:00Z"),
-//         role: "Android Developer",
-//         type: "Technical",
-//         difficultyLevel: "Medium",
-//     },
-//     {
-//         id: "6",
-//         name: "Full Stack Interview Simulation",
-//         isCompleted: false,
-//         createdAt: new Date("2025-04-28T13:00:00Z"),
-//         role: "Full Stack Developer",
-//         type: "Technical",
-//         difficultyLevel: "Medium",
-//     },
-//     {
-//         id: "7",
-//         name: "Behavioral Interview for Tech Leads",
-//         isCompleted: false,
-//         createdAt: new Date("2025-03-21T16:00:00Z"),
-//         role: "Team Lead",
-//         type: "Behavioral",
-//         difficultyLevel: "Medium",
-//     },
-//     {
-//         id: "8",
-//         name: "System Design: Messaging System",
-//         isCompleted: false,
-//         createdAt: new Date("2025-03-10T10:30:00Z"),
-//         role: "System Architect",
-//         type: "System Design",
-//         difficultyLevel: "Hard",
-//     },
-//     {
-//         id: "9",
-//         name: "React Deep Dive",
-//         isCompleted: false,
-//         createdAt: new Date("2025-04-30T11:15:00Z"),
-//         role: "React Developer",
-//         type: "Technical",
-//         difficultyLevel: "Medium",
-//     },
-//     {
-//         id: "10",
-//         name: "AI/ML Position Interview",
-//         isCompleted: false,
-//         createdAt: new Date("2025-03-08T09:00:00Z"),
-//         role: "ML Engineer",
-//         type: "Technical",
-//         difficultyLevel: "Hard",
-//     },
-//     {
-//         id: "11",
-//         name: "SQL and Data Modeling",
-//         isCompleted: false,
-//         createdAt: new Date("2025-04-01T14:00:00Z"),
-//         role: "Data Specialist",
-//         type: "Technical",
-//         difficultyLevel: "Easy",
-//     },
-//     {
-//         id: "12",
-//         name: "Cloud System Design",
-//         isCompleted: false,
-//         createdAt: new Date("2025-04-29T10:00:00Z"),
-//         role: "DevOps Engineer",
-//         type: "System Design",
-//         difficultyLevel: "Hard",
-//     },
-//     {
-//         id: "13",
-//         name: "Behavioral + Tech Round",
-//         isCompleted: false,
-//         createdAt: new Date("2025-03-17T17:00:00Z"),
-//         role: "Software Developer",
-//         type: "Behavioral",
-//         difficultyLevel: "Medium",
-//     },
-//     {
-//         id: "14",
-//         name: "Junior Dev Mock Interview",
-//         isCompleted: false,
-//         createdAt: new Date("2025-02-15T09:30:00Z"),
-//         role: "Entry-Level Developer",
-//         type: "Technical",
-//         difficultyLevel: "Easy",
-//     },
-//     {
-//         id: "15",
-//         name: "Data Engineering Practical",
-//         isCompleted: false,
-//         createdAt: new Date("2025-04-27T10:00:00Z"),
-//         role: "Big Data Engineer",
-//         type: "Technical",
-//         difficultyLevel: "Hard",
-//     }
-// ];
 
 export const difficultyLevelLevels: Record<string, string> = {
     "Easy": "Easy",
@@ -328,7 +191,6 @@ type InterviewTableProps = {
 
 export function MockInterviewTable({ globalFilterValue, query }: InterviewTableProps) {
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [data, setData] = useState<MockInterviewType[]>([]);
     const [globalFilter, setGlobalFilter] = useState<any>("")
     const [pagination, setpagination] = useState<PaginationState>({
         pageIndex: 0,
@@ -339,16 +201,10 @@ export function MockInterviewTable({ globalFilterValue, query }: InterviewTableP
         setGlobalFilter(globalFilterValue.trim() || "");
     }, [globalFilterValue]);
 
-    useEffect(() => {
-        const getInterviewData = async () => {
-            setData(query.data);
-        };
-        getInterviewData();
-    }, [query.isRefetching, query])
 
     const table = useReactTable({
         columns,
-        data: data || [],
+        data: query.data || [],
         state: {
             sorting,
             globalFilter,
@@ -367,7 +223,7 @@ export function MockInterviewTable({ globalFilterValue, query }: InterviewTableP
 
     return (
         <div className="space-y-4 bg-white min-h-[465px] flex flex-col justify-between px-10 py-4 rounded-4xl z-50">
-            {query.isLoading ? (
+            {query.isLoading || query.isFetching ? (
                 <div className="flex justify-center items-center min-h-[400px]">
                     <Loader />
                 </div>

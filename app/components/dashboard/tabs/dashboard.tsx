@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { InterviewProgressChart } from '../interview-progress-chart'
 import DashboardTabHeader from '../dashboard-tab-header'
 import { SkillsPerformanceChart } from '../skill-performance-chart'
 import LeaderBoard from '../leader-board'
 import { prisma } from '@/prisma/prisma'
 import { auth } from '@/app/(auth-pages)/auth'
+import Loader from '../../ui/loader'
 
 const DashboardTab = async () => {
   const user = await auth();
@@ -36,16 +37,19 @@ const DashboardTab = async () => {
   ]
 
   return (
-    <div className='w-full flex flex-col gap-5'>
-      <div>
-        <DashboardTabHeader completedInterViews={completedInterViews} totalInterViews={inProgressInterViews} />
+    <Suspense fallback={<Loader />}>
+      <div className='w-full flex flex-col gap-5 pb-10 xl:pb-0 overflow-auto md:overflow-y-none'>
+        <div>
+          <DashboardTabHeader completedInterViews={completedInterViews} totalInterViews={inProgressInterViews} />
+        </div>
+        <div className='flex flex-col xl:flex-row gap-y-5 gap-x-1.5'>
+          <InterviewProgressChart CompletedInterviews={totalInterViews} inProgress={inProgressInterViews} />
+          <SkillsPerformanceChart ChartData={chartData} />
+          <LeaderBoard />
+        </div>
       </div>
-      <div className='flex flex-col xl:flex-row gap-y-5 gap-x-1.5'>
-        <InterviewProgressChart CompletedInterviews={totalInterViews} inProgress={inProgressInterViews} />
-        <SkillsPerformanceChart ChartData={chartData} />
-        <LeaderBoard />
-      </div>
-    </div>
+    </Suspense>
+
   )
 }
 

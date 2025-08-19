@@ -3,7 +3,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 
 
 
-export function DialogDemo({ feedBack }: { feedBack: string }) {
+export function FeedBackDialog({ feedBack, interviewtitle }: { feedBack: string, interviewtitle: string }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -11,7 +11,7 @@ export function DialogDemo({ feedBack }: { feedBack: string }) {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle />
+                    <DialogTitle>{interviewtitle }</DialogTitle>
                     <DialogDescription>
                         {feedBack}
                     </DialogDescription>

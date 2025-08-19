@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MockInterviewTable } from '../mock-interview-table'
 import { Card, CardContent, CardHeader } from '../../ui/card'
 import { Input } from '../../ui/input';
@@ -10,23 +10,31 @@ import { QueryKeys } from '@/hooks/react-query/keys';
 
 
 const MockInterviewTab = () => {
+  const [globalFilter, setGlobalFilter] = useState("");
 
-  const [globalFilter, setglobalFilter] = useState("");
+  const queryResult = useQuery({
+    queryKey: [QueryKeys.fetch_interview],
+    queryFn: FetchMockInterviews,
+    staleTime: Infinity, 
+    gcTime: 10 * 60 * 1000, 
+    refetchOnWindowFocus: false, 
+    refetchOnMount: false,
+    refetchOnReconnect: false, 
+    refetchInterval: false, 
+  });
 
-  const queryRef = useRef<UseQueryResult<any, Error> | null>(null);
-  queryRef.current = useQuery({ queryKey: [QueryKeys.fetch_interview], queryFn: FetchMockInterviews });
   return (
     <Card className="flex border-none h-full gap-0 bg-[#c1cbef] z-10 pt-0 px-0 rounded-4xl pb-0 w-full">
       <CardHeader className="flex py-4 justify-end flex-row">
         <Input
-          className="p-5 bg-white rounded-full text-sm max-w-sm border border-[#2a314e] active:outline-none active:ring-0 focus:outline-none focus:ring-0 focus:ring-offset-0"
-          placeholder="Search"
+          className="p-5 bg-white rounded-full text-sm max-w-sm active:outline-none active:ring-0 focus:outline-none focus:ring-0 focus:ring-offset-0"
+          placeholder="Search Mock Interviews"
           value={globalFilter}
-          onChange={(e) => setglobalFilter(e.target.value)}
+          onChange={(e) => setGlobalFilter(e.target.value)}
         />
       </CardHeader>
       <CardContent className="w-full h-full py-0 px-0">
-        <MockInterviewTable globalFilterValue={globalFilter} query={queryRef.current} />
+        <MockInterviewTable globalFilterValue={globalFilter} query={queryResult} />
       </CardContent>
     </Card>
   );

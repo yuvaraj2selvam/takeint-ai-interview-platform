@@ -13,7 +13,6 @@ export async function GET(req: NextRequest) {
     const interviews = await prisma.interview.findMany({
       where: {
         userId,
-        OR: [{ isCompleted: false }, { isCompleted: null }],
       },
       select: {
         id: true,

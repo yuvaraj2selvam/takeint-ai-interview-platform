@@ -23,7 +23,7 @@ export default function LeaderBoard() {
     ];
 
     return (
-        <Card className="flex z-10 flex-col min-w-2xs h-[380px] bg-white/60 rounded-4xl select-none">
+        <Card className="flex z-10 flex-col min-w-2xs min-h-[380px] h-full bg-white/60 rounded-4xl select-none">
             <React.Fragment>
                 <CardHeader className="items-center pb-0">
                     <CardTitle>Leader Boards</CardTitle>

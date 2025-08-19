@@ -13,23 +13,11 @@ type DashboardHeaderProps = {
 const DashboardTabHeader = (props: DashboardHeaderProps) => {
     const session = useSession();
     return (
-        <div className='flex gap-5 flex-col'>
+        <div className='flex gap-5 flex-col items-center md:items-start'>
             <h2 className='text-4xl z-10'>Welcome in, <span className='font-semibold'>{session.data?.user?.name}</span></h2>
-            <div className='flex flex-col xl:flex-row gap-10 items-start  md:items-center justify-between'>
+            <div className='flex w-full items-center md:flex-row flex-col gap-10 md:items-start justify-between'>
 
                 <div className="flex justify-between items-center flex-col md:flex-row gap-2">
-                    {/* Live Interview
-                    <div className="flex w-full z-10 gap-2 flex-row justify-between md:flex-col items-center md:items-start">
-                        <h1>Live Interview</h1>
-                        <div className="relative z-10 w-[160px] self-end md:w-[200px] bg-dark text-white text-sm rounded-full overflow-hidden">
-                            <div
-                                className="absolute top-0 left-0 h-full bg-[repeating-linear-gradient(45deg,_transparent,_transparent_4px,_#5a5f7a,_#1cc255_6px)]"
-                                style={{ width: `60%` }}
-                            />
-                            <div className="relative p-3 text-xl pl-5 font-semibold">60%</div>
-                        </div>
-                    </div> */}
-
                     {/* Mock Interview */}
                     <div className="flex z-10 gap-2 w-full flex-row md:flex-col justify-between items-center md:items-start">
                         <h1>Mock Interview</h1>

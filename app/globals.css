@@ -139,7 +139,7 @@
   }
 
   .nav-btn {
-    @apply rounded-full border border-transparent hover:border-black hover:font-semibold text-[16px] leading-6 px-1 md:px-2.5 py-2.5 ;
+    @apply rounded-full border border-transparent hover:border-black hover:font-semibold text-[16px] leading-6 px-1 md:px-2.5 py-2.5;
   }
 
   .blue-head {
@@ -200,15 +200,40 @@
   background-attachment: fixed;
 }
 
+
 .common-loader {
-  width: 120px;
-  height: 20px;
-  -webkit-mask: linear-gradient(90deg, #000 70%, #0000 0) left/20% 100%;
-  background: linear-gradient(#000 0 0) left -25% top 0 /20% 100% no-repeat #ddd;
-  animation: l7 1s infinite steps(6);
+  height: 15px;
+  aspect-ratio: 6;
+  display: flex;
 }
-@keyframes l7 {
+.common-loader:before,
+.common-loader:after {
+  content: "";
+  flex: 1;
+  padding-left: calc(100% / 6);
+  background: radial-gradient(
+      closest-side at calc(100% / 3) 50%,
+      #000 90%,
+      #0000
+    )
+    0/75% 100% content-box;
+  animation: l20 2s infinite;
+}
+.common-loader:after {
+  --_s: -1;
+}
+@keyframes l20 {
+  0% {
+    transform: scale(var(--_s, 1)) translate(0) rotate(0);
+  }
+  25% {
+    transform: scale(var(--_s, 1)) translate(-25%) rotate(0);
+  }
+  50% {
+    transform: scale(var(--_s, 1)) translate(-25%) rotate(1turn);
+  }
+  75%,
   100% {
-    background-position: right -25% top 0;
+    transform: scale(var(--_s, 1)) translate(0) rotate(1turn);
   }
 }

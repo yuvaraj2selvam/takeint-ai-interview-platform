@@ -64,7 +64,7 @@ model Interview {
 model InterviewFeedback {
   id                  String    @id @default(cuid())
   interviewId         String    @unique
-  userId              String    @unique
+  userId              String
   feedBack            String
   problemSolving      Int
   systemDesign        Int

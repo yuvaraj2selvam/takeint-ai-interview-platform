@@ -54,7 +54,7 @@ const containerItems = [
 
 const ShowCaseBanner1 = () => {
     return (<>
-        <article className='pt-10 pb-10'>
+        <article className=' pt-0 md:pt-10 pb-10'>
             <section className='flex flex-col md:flex-row justify-items-start gap-10 pt-12 pb-12 items-center'>
                 <h3 className='w-fit blue-head text-center sm:text-left px-4 text-2xl sm:text-4xl'>Unlock Your Interview Success</h3>
                 <p className='max-w-2/3 text-center'>Transform your interview skills with AI-driven mock interviews that mimic

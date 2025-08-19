@@ -82,7 +82,7 @@ const CreateInterviewForm = () => {
         if (state.success) {
             toast.success("Mock Interview Created Successfully!", {
                 duration: 3000,
-                position: "bottom-right",
+                position: "top-right",
                 icon: "✅",
                 style: {
                     background: "#e7e9fb",
@@ -93,11 +93,11 @@ const CreateInterviewForm = () => {
                 },
                 className: "shadow-lg",
             })
-            queryClient.invalidateQueries({ queryKey: [QueryKeys.fetch_interview] });
+            queryClient.refetchQueries({ queryKey: [QueryKeys.fetch_interview] });
         } else if (isPendingSet) {
             toast.success("Error Occured, Please Try Again", {
                 duration: 3000,
-                position: "bottom-right",
+                position: "top-right",
                 style: {
                     background: "#FF0000",
                     color: "#000000",
@@ -114,7 +114,7 @@ const CreateInterviewForm = () => {
 
     return (
         <div className='relative w-full overflow-hidden'>
-            <Card className="flex flex-col w-full max-w-4xl z-50 p-4 md:p-8 bg-transparent border-none shadow-none">
+            <Card className="flex flex-col w-full max-w-4xl z-50 p-4 bg-transparent border-none shadow-none">
                 <CardHeader className="p-0 mb-4">
                     <CardTitle className="text-dark text-xl md:text-2xl text-center md:text-left">
                         Customize your mock interview to suit your needs.
@@ -128,14 +128,14 @@ const CreateInterviewForm = () => {
                                 return (
                                     <section
                                         key={index}
-                                        className="flex flex-col gap-4  md:flex-row md:gap-6 w-full"
+                                        className="flex flex-col gap-4 md:flex-row md:gap-6 w-full"
                                     >
                                         {item.map((question, subIndex) => (
                                             <div
                                                 key={`${index}-${subIndex}`}
                                                 className="flex flex-col justify-between w-full md:flex-1 gap-2"
                                             >
-                                                <Label htmlFor={question.name}>{question.label}</Label>
+                                                <Label className='leading-5' htmlFor={question.name}>{question.label}</Label>
                                                 {question.type === "input" ? (
                                                     <Input
                                                         type="text"
@@ -172,9 +172,9 @@ const CreateInterviewForm = () => {
                                 return (
                                     <section
                                         key={index}
-                                        className="flex flex-col justify-between gap-2 w-full"
+                                        className="flex flex-col justify-between  gap-2 w-full"
                                     >
-                                        <Label htmlFor={question.name}>{question.label}</Label>
+                                        <Label className='leading-5' htmlFor={question.name}>{question.label}</Label>
                                         {question.type === "input" ? (
                                             <Input
                                                 type="text"

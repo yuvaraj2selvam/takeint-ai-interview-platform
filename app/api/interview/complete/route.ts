@@ -10,7 +10,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   const conversation = (data.conservation as SavedMessage[])
     .map(
-      (msg) => `${msg.role === "user" ? "User" : "Assistant"}: ${msg.content}`
+      (msg) =>
+        `${msg.role.toLocaleLowerCase() === "user" ? "User" : "Assistant"}: ${
+          msg.content
+        }`
     )
     .join("\n");
 
