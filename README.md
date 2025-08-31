@@ -45,7 +45,7 @@ AI Mock Interview Platform helps candidates rehearse interviews with realistic v
 
 <hr />
 
-<h2 id="demo">📸 Media (Paste Here)</h2>
+<h2 id="demo">📸 Media </h2>
 
 <table width="100%">
   <tr>
